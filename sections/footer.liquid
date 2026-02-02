@@ -57,8 +57,9 @@
             {% endfor %}
           {% else %}
             <li><a href="/pages/contact" class="hover:text-pink-500 hover:pl-2 transition-all duration-200">Contact Us</a></li>
-            <li><a href="/policies/shipping-policy" class="hover:text-pink-500 hover:pl-2 transition-all duration-200">Shipping</a></li>
-            <li><a href="/policies/refund-policy" class="hover:text-pink-500 hover:pl-2 transition-all duration-200">Returns</a></li>
+            <li><a href="/pages/care" class="hover:text-pink-500 hover:pl-2 transition-all duration-200">Care Instructions</a></li>
+            <li><a href="/pages/shipping" class="hover:text-pink-500 hover:pl-2 transition-all duration-200">Shipping</a></li>
+            <li><a href="/pages/returns" class="hover:text-pink-500 hover:pl-2 transition-all duration-200">Returns</a></li>
             <li><a href="/pages/size-guide" class="hover:text-pink-500 hover:pl-2 transition-all duration-200">Size Guide</a></li>
             <li><a href="/pages/faq" class="hover:text-pink-500 hover:pl-2 transition-all duration-200">FAQ</a></li>
           {% endif %}
@@ -69,8 +70,8 @@
     <div class="border-t border-gray-100 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
       <p>© {{ 'now' | date: "%Y" }} {{ shop.name }}. All rights reserved.</p>
       <div class="flex space-x-6 mt-4 md:mt-0">
-        <a href="/policies/privacy-policy" class="hover:text-gray-900">Privacy</a>
-        <a href="/policies/terms-of-service" class="hover:text-gray-900">Terms</a>
+        <a href="/pages/privacy" class="hover:text-gray-900">Privacy</a>
+        <a href="/pages/terms" class="hover:text-gray-900">Terms</a>
       </div>
     </div>
   </div>
