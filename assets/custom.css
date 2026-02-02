@@ -1,5 +1,16 @@
 /* La Hime - Custom Theme Styles */
 
+/* Collection header fix */
+.bg-pink-50 h1 {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  display: block;
+  width: auto;
+  max-width: 100%;
+  overflow: visible;
+  text-align: center;
+}
+
 /* Additional utility classes not covered by Tailwind CDN */
 .sr-only {
   position: absolute;
