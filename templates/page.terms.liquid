@@ -1,53 +1,241 @@
-  {% comment %}
+{% comment %}
   Terms of Service Page - La Hime
-  Professional legal page template
+  Shopify-compliant professional terms of service template
 {% endcomment %}
 
-<div class="min-h-screen bg-white pt-32 pb-24">
-  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="mb-12">
-      <a href="/" class="inline-flex items-center text-gray-600 hover:text-black text-sm font-bold uppercase mb-8 transition-colors">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mr-2">
-          <polyline points="15 18 9 12 15 6"></polyline>
-        </svg>
-        Back Home
-      </a>
-      <h1 class="text-5xl text-gray-900 mb-4 font-bold">Terms of Service</h1>
-      <p class="text-gray-500 text-sm">Last Updated: February 2, 2026</p>
-    </div>
-    
-    <div class="space-y-10 text-gray-700 leading-relaxed">
+<div class="min-h-screen bg-white">
+  <div class="pt-32 pb-24">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      {%- comment -%} Header {%- endcomment -%}
+      <div class="mb-16 border-b border-gray-200 pb-12">
+        <h1 class="font-serif-display text-5xl text-gray-900 mb-3">Terms of Service</h1>
+        <p class="text-gray-600">Last Updated: <time datetime="{{ 'now' | date: '%Y-%m-%d' }}">{{ 'now' | date: '%B %d, %Y' }}</time></p>
+      </div>
+
+      <div class="prose prose-lg max-w-none">
         
-        <section class="border-b border-gray-200 pb-12">
-          <h2 class="font-bold text-2xl text-gray-900 mb-4">1. Agreement to Terms</h2>
-          <p>These Terms of Use constitute a legally binding agreement made between you, whether personally or on behalf of an entity ("you") and La Hime ("we," "us" or "our"), concerning your access to and use of our website and services.</p>
+        {%- comment -%} Introduction {%- endcomment -%}
+        <section class="mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">1. Agreement to Terms</h2>
+          <p class="text-gray-700 leading-relaxed">
+            These Terms of Service ("Terms") constitute a legally binding agreement between you, whether personally or on behalf of an entity ("you," "your," or "User"), and La Hime ("Company," "we," "us," or "our"), concerning your access to and use of the La Hime website and all related content, products, and services (collectively, the "Services").
+          </p>
+          <p class="text-gray-700 leading-relaxed mt-4">
+            By accessing and using our Services, you acknowledge that you have read, understood, and agree to be bound by all the terms and conditions contained in this Agreement. If you do not agree with any part of these Terms, you may not access or use our Services.
+          </p>
         </section>
 
-        <section class="border-b border-gray-200 pb-12">
-          <h2 class="font-bold text-2xl text-gray-900 mb-4">2. Intellectual Property Rights</h2>
-          <p class="mb-4">Unless otherwise indicated, the Site is our proprietary property and all source code, databases, functionality, software, website designs, audio, video, text, photographs, and graphics (collectively, the "Content") and the trademarks, service marks, and logos contained therein (the "Marks") are owned or controlled by us.</p>
-          <p>All content is protected by copyright and trademark laws. You may not reproduce, distribute, or transmit any content without our explicit written permission.</p>
+        {%- comment -%} Access & Eligibility {%- endcomment -%}
+        <section class="mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">2. Eligibility & Access</h2>
+          <p class="text-gray-700 leading-relaxed mb-4">
+            To use our Services, you represent and warrant that:
+          </p>
+          <div class="bg-gray-50 p-6 rounded-lg mb-4">
+            <ul class="space-y-3">
+              <li class="flex gap-3">
+                <span class="text-pink-500 font-bold flex-shrink-0">✓</span>
+                <span class="text-gray-700">You are at least 18 years old or of legal age in your jurisdiction</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-pink-500 font-bold flex-shrink-0">✓</span>
+                <span class="text-gray-700">You have the legal authority to enter into a binding agreement</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-pink-500 font-bold flex-shrink-0">✓</span>
+                <span class="text-gray-700">All information you provide is accurate and truthful</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-pink-500 font-bold flex-shrink-0">✓</span>
+                <span class="text-gray-700">Your use complies with all applicable laws and regulations</span>
+              </li>
+            </ul>
+          </div>
         </section>
 
-        <section class="border-b border-gray-200 pb-12">
-          <h2 class="font-bold text-2xl text-gray-900 mb-4">3. User Representations</h2>
-          <p class="mb-4">By using our Site, you represent and warrant that:</p>
-          <ul class="space-y-3 mt-4">
-            <li class="flex gap-3">
-              <span class="text-pink-500 font-bold mt-1">✓</span>
-              <span>All registration information you provide is true and accurate</span>
-            </li>
-            <li class="flex gap-3">
-              <span class="text-pink-500 font-bold mt-1">✓</span>
-              <span>You will maintain the accuracy of such information</span>
-            </li>
-            <li class="flex gap-3">
-              <span class="text-pink-500 font-bold mt-1">✓</span>
-              <span>You have the legal capacity to agree to these terms</span>
-            </li>
-            <li class="flex gap-3">
-              <span class="text-pink-500 font-bold mt-1">✓</span>
-              <span>You are not a minor in your jurisdiction</span>
+        {%- comment -%} Product Information {%- endcomment -%}
+        <section class="mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">3. Products & Pricing</h2>
+          <p class="text-gray-700 leading-relaxed mb-4">
+            <strong>Product Descriptions:</strong> We strive to provide accurate descriptions of our products. However, we do not warrant that descriptions, prices, or other content is accurate, complete, or error-free. We reserve the right to correct any errors or omissions.
+          </p>
+          <p class="text-gray-700 leading-relaxed mb-4">
+            <strong>Pricing:</strong> All prices are subject to change without notice. Prices displayed are in USD unless otherwise stated. Taxes and shipping fees are calculated during checkout.
+          </p>
+          <p class="text-gray-700 leading-relaxed">
+            <strong>Availability:</strong> Products are available while supplies last. We reserve the right to limit quantities and refuse orders at our discretion.
+          </p>
+        </section>
+
+        {%- comment -%} Orders & Payments {%- endcomment -%}
+        <section class="mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">4. Orders & Payment</h2>
+          <div class="space-y-4">
+            <div class="border-l-4 border-pink-500 pl-4 py-2">
+              <h3 class="font-bold text-gray-900 mb-2">Order Acceptance</h3>
+              <p class="text-gray-700">Placing an order constitutes an offer to purchase. We reserve the right to accept or reject any order for any reason, including inventory limitations or pricing errors.</p>
+            </div>
+            <div class="border-l-4 border-pink-500 pl-4 py-2">
+              <h3 class="font-bold text-gray-900 mb-2">Payment Authorization</h3>
+              <p class="text-gray-700">By submitting an order, you authorize us to charge your payment method for the total amount due, including taxes and shipping.</p>
+            </div>
+            <div class="border-l-4 border-pink-500 pl-4 py-2">
+              <h3 class="font-bold text-gray-900 mb-2">Payment Security</h3>
+              <p class="text-gray-700">All payments are processed through Shopify's secure payment system. We do not store your full payment information on our servers.</p>
+            </div>
+          </div>
+        </section>
+
+        {%- comment -%} Shipping & Returns {%- endcomment -%}
+        <section class="mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">5. Shipping & Returns</h2>
+          <p class="text-gray-700 leading-relaxed mb-4">
+            <strong>Shipping:</strong> We ship domestically and internationally. Shipping times and costs vary by location and are calculated at checkout. Orders are processed within 1-2 business days.
+          </p>
+          <p class="text-gray-700 leading-relaxed mb-4">
+            <strong>Risk of Loss:</strong> Risk of loss for items transfers to you upon delivery to the carrier. We recommend insuring valuable orders.
+          </p>
+          <p class="text-gray-700 leading-relaxed">
+            <strong>Returns:</strong> Our return policy is detailed <a href="/pages/returns" class="text-pink-500 hover:underline font-bold">here</a>. All returns must be initiated within 30 days of purchase. Items must be unworn, unwashed, and in original condition.
+          </p>
+        </section>
+
+        {%- comment -%} Intellectual Property {%- endcomment -%}
+        <section class="mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">6. Intellectual Property Rights</h2>
+          <p class="text-gray-700 leading-relaxed mb-4">
+            The Services and all content contained therein, including text, graphics, logos, images, videos, and software ("Content"), are the exclusive property of La Hime or our licensors and are protected by copyright, trademark, and other intellectual property laws.
+          </p>
+          <p class="text-gray-700 leading-relaxed mb-4">
+            <strong>Limited License:</strong> We grant you a limited, non-exclusive, revocable license to view and print Content solely for personal, non-commercial use.
+          </p>
+          <p class="text-gray-700 leading-relaxed">
+            <strong>Restrictions:</strong> You may not reproduce, distribute, transmit, modify, or create derivative works from any Content without our express written permission.
+          </p>
+        </section>
+
+        {%- comment -%} User Conduct {%- endcomment -%}
+        <section class="mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">7. Prohibited Conduct</h2>
+          <p class="text-gray-700 leading-relaxed mb-4">
+            You agree not to engage in any of the following prohibited activities:
+          </p>
+          <div class="bg-red-50 p-6 rounded-lg">
+            <ul class="space-y-2">
+              <li class="flex gap-3">
+                <span class="text-red-500 font-bold flex-shrink-0">✗</span>
+                <span class="text-gray-700">Violating any applicable laws or regulations</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-red-500 font-bold flex-shrink-0">✗</span>
+                <span class="text-gray-700">Infringing on intellectual property rights</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-red-500 font-bold flex-shrink-0">✗</span>
+                <span class="text-gray-700">Hacking, scraping, or unauthorized data collection</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-red-500 font-bold flex-shrink-0">✗</span>
+                <span class="text-gray-700">Transmitting malware, viruses, or harmful code</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-red-500 font-bold flex-shrink-0">✗</span>
+                <span class="text-gray-700">Harassment, threats, or abusive behavior</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-red-500 font-bold flex-shrink-0">✗</span>
+                <span class="text-gray-700">Fraudulent or deceptive activities</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        {%- comment -%} Limitation of Liability {%- endcomment -%}
+        <section class="mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">8. Limitation of Liability</h2>
+          <div class="bg-yellow-50 border border-yellow-200 p-6 rounded-lg">
+            <p class="text-gray-700 leading-relaxed mb-4">
+              To the fullest extent permitted by law, La Hime shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of the Services, including but not limited to lost profits, loss of data, or business interruption, even if we have been advised of the possibility of such damages.
+            </p>
+            <p class="text-gray-700 leading-relaxed">
+              Our total liability to you for all claims arising from the Services shall not exceed the amount you paid to us in the 12 months preceding the claim.
+            </p>
+          </div>
+        </section>
+
+        {%- comment -%} Disclaimers {%- endcomment -%}
+        <section class="mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">9. Disclaimers</h2>
+          <p class="text-gray-700 leading-relaxed mb-4">
+            <strong>AS-IS BASIS:</strong> The Services are provided "as-is" and "as available" without warranties of any kind, either express or implied.
+          </p>
+          <div class="bg-gray-50 p-6 rounded-lg mb-4">
+            <ul class="space-y-2">
+              <li class="flex gap-3">
+                <span class="text-gray-400 font-bold flex-shrink-0">•</span>
+                <span class="text-gray-700">We disclaim all warranties, including merchantability, fitness for particular purpose, and non-infringement</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-gray-400 font-bold flex-shrink-0">•</span>
+                <span class="text-gray-700">We do not guarantee continuous, uninterrupted, or error-free service</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-gray-400 font-bold flex-shrink-0">•</span>
+                <span class="text-gray-700">We are not responsible for third-party content or services</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        {%- comment -%} Modifications {%- endcomment -%}
+        <section class="mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">10. Service Modifications</h2>
+          <p class="text-gray-700 leading-relaxed">
+            We reserve the right to modify, suspend, or discontinue the Services at any time without notice. We may also update these Terms from time to time. Continued use of the Services following any updates constitutes your acceptance of the revised Terms.
+          </p>
+        </section>
+
+        {%- comment -%} Contact {%- endcomment -%}
+        <section class="mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">11. Contact Information</h2>
+          <div class="bg-pink-50 p-6 rounded-lg">
+            <p class="text-gray-700 mb-4">
+              For questions about these Terms, please contact us:
+            </p>
+            <div class="space-y-2">
+              <p class="text-gray-900 font-bold">La Hime</p>
+              <p class="text-gray-700">Email: <a href="mailto:{{ shop.email }}" class="text-pink-500 hover:underline">{{ shop.email }}</a></p>
+              <p class="text-gray-700">Website: <a href="{{ shop.url }}" class="text-pink-500 hover:underline">{{ shop.url }}</a></p>
+            </div>
+          </div>
+        </section>
+
+        {%- comment -%} Governing Law {%- endcomment -%}
+        <section>
+          <div class="border-t border-gray-200 pt-8">
+            <h2 class="text-xl font-bold text-gray-900 mb-2">12. Governing Law</h2>
+            <p class="text-gray-700">
+              These Terms shall be governed by and construed in accordance with the laws of the jurisdiction where La Hime is located, without regard to its conflict of law principles. You agree to submit to the exclusive jurisdiction of the courts located in that jurisdiction.
+            </p>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .font-serif-display {
+    font-family: 'Playfair Display', serif;
+  }
+  
+  .prose h2 {
+    border-bottom: 2px solid #f3f4f6;
+    padding-bottom: 1rem;
+  }
+</style>
             </li>
             <li class="flex gap-3">
               <span class="text-pink-500 font-bold mt-1">✓</span>

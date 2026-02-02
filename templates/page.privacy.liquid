@@ -1,53 +1,259 @@
 {% comment %}
   Privacy Policy Page - La Hime
-  Professional legal page template
+  Shopify-compliant professional privacy policy template
 {% endcomment %}
 
-<div class="min-h-screen bg-white pt-32 pb-24">
-  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-    
-    <div class="mb-12">
-      <a href="/" class="inline-flex items-center text-gray-600 hover:text-black text-sm font-bold uppercase mb-8 transition-colors">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mr-2">
-          <polyline points="15 18 9 12 15 6"></polyline>
-        </svg>
-        Back Home
-      </a>
-      <h1 class="text-5xl text-gray-900 mb-4 font-bold">Privacy Policy</h1>
-      <p class="text-gray-500 text-sm">Last Updated: February 2, 2026</p>
-    </div>
-    
-    <div class="space-y-10 text-gray-700 leading-relaxed">
+<div class="min-h-screen bg-white">
+  <div class="pt-32 pb-24">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       
-      <section>
-        <h2 class="text-2xl font-bold text-gray-900 mb-4">1. Introduction</h2>
-        <p class="mb-4">La Hime ("we", "our", or "us") respects the privacy of our users. This Privacy Policy explains how we collect, use, and safeguard your information when you visit our website.</p>
-        <p>Please read this policy carefully. If you do not agree with its terms, please do not access our site.</p>
-      </section>
+      {%- comment -%} Header {%- endcomment -%}
+      <div class="mb-16 border-b border-gray-200 pb-12">
+        <h1 class="font-serif-display text-5xl text-gray-900 mb-3">Privacy Policy</h1>
+        <p class="text-gray-600">Last Updated: <time datetime="{{ 'now' | date: '%Y-%m-%d' }}">{{ 'now' | date: '%B %d, %Y' }}</time></p>
+      </div>
 
-      <section>
-        <h2 class="text-2xl font-bold text-gray-900 mb-4">2. Data We Collect</h2>
-        <div class="space-y-3">
-          <div class="bg-gray-50 p-4 rounded-lg">
-            <p class="font-bold text-gray-900 mb-2">Personal Information</p>
-            <p class="text-gray-600">Name, email, shipping address, phone number, and account preferences</p>
-          </div>
-          <div class="bg-gray-50 p-4 rounded-lg">
-            <p class="font-bold text-gray-900 mb-2">Technical Data</p>
-            <p class="text-gray-600">IP address, browser type, operating system, and browsing patterns</p>
-          </div>
-          <div class="bg-gray-50 p-4 rounded-lg">
-            <p class="font-bold text-gray-900 mb-2">Payment Information</p>
-            <p class="text-gray-600">Securely processed through our payment provider (never stored by us)</p>
-          </div>
-        </div>
-      </section>
+      <div class="prose prose-lg max-w-none">
+        
+        {%- comment -%} Introduction {%- endcomment -%}
+        <section class="mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">1. Introduction & Scope</h2>
+          <p class="text-gray-700 leading-relaxed mb-4">
+            La Hime ("Company," "we," "us," "our," or "Website") operates the La Hime website. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website and use our services, including all related sites, applications, and services that link to this Privacy Policy (collectively, the "Services").
+          </p>
+          <p class="text-gray-700 leading-relaxed">
+            Please read this Privacy Policy carefully. If you do not agree with our policies and practices, please do not use our Services. By accessing and using our Website, you acknowledge that you have read and understood this Privacy Policy.
+          </p>
+        </section>
 
-      <section>
-        <h2 class="text-2xl font-bold text-gray-900 mb-4">3. How We Use Your Information</h2>
-        <ul class="space-y-2">
-          <li class="flex gap-3">
-            <span class="text-pink-500 font-bold">✓</span>
+        {%- comment -%} Information Collection {%- endcomment -%}
+        <section class="mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">2. Information We Collect</h2>
+          
+          <h3 class="text-2xl font-bold text-gray-900 mb-3 mt-6">2.1 Information You Provide Directly</h3>
+          <div class="bg-gray-50 p-6 rounded-lg mb-4">
+            <ul class="space-y-3">
+              <li class="flex gap-3">
+                <span class="text-pink-500 font-bold flex-shrink-0">•</span>
+                <span class="text-gray-700"><strong>Account Information:</strong> Name, email address, password, phone number</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-pink-500 font-bold flex-shrink-0">•</span>
+                <span class="text-gray-700"><strong>Shipping & Billing:</strong> Street address, city, state, postal code, country</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-pink-500 font-bold flex-shrink-0">•</span>
+                <span class="text-gray-700"><strong>Payment Data:</strong> Processed securely through our payment provider (Shopify Payments)</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-pink-500 font-bold flex-shrink-0">•</span>
+                <span class="text-gray-700"><strong>Communications:</strong> Messages, feedback, and inquiries submitted through contact forms</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-pink-500 font-bold flex-shrink-0">•</span>
+                <span class="text-gray-700"><strong>Preferences:</strong> Product preferences, wishlist items, communication preferences</span>
+              </li>
+            </ul>
+          </div>
+
+          <h3 class="text-2xl font-bold text-gray-900 mb-3 mt-6">2.2 Automatically Collected Information</h3>
+          <div class="bg-gray-50 p-6 rounded-lg mb-4">
+            <ul class="space-y-3">
+              <li class="flex gap-3">
+                <span class="text-pink-500 font-bold flex-shrink-0">•</span>
+                <span class="text-gray-700"><strong>Device Information:</strong> IP address, browser type, operating system, device type</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-pink-500 font-bold flex-shrink-0">•</span>
+                <span class="text-gray-700"><strong>Usage Data:</strong> Pages visited, time spent, click patterns, referring URL</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-pink-500 font-bold flex-shrink-0">•</span>
+                <span class="text-gray-700"><strong>Cookies & Tracking:</strong> Via cookies, pixels, and similar technologies</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        {%- comment -%} Data Usage {%- endcomment -%}
+        <section class="mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">3. How We Use Your Information</h2>
+          <div class="bg-pink-50 p-6 rounded-lg mb-4">
+            <ul class="space-y-3">
+              <li class="flex gap-3">
+                <span class="text-pink-500 font-bold flex-shrink-0">✓</span>
+                <span class="text-gray-700">Process and fulfill your orders and transactions</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-pink-500 font-bold flex-shrink-0">✓</span>
+                <span class="text-gray-700">Send order confirmations, shipping updates, and customer support</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-pink-500 font-bold flex-shrink-0">✓</span>
+                <span class="text-gray-700">Personalize your shopping experience and website recommendations</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-pink-500 font-bold flex-shrink-0">✓</span>
+                <span class="text-gray-700">Send marketing communications (only with your consent)</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-pink-500 font-bold flex-shrink-0">✓</span>
+                <span class="text-gray-700">Analyze usage patterns to improve our website and services</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-pink-500 font-bold flex-shrink-0">✓</span>
+                <span class="text-gray-700">Detect, investigate, and prevent fraudulent transactions and abuse</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-pink-500 font-bold flex-shrink-0">✓</span>
+                <span class="text-gray-700">Comply with legal obligations and enforce our Terms of Service</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        {%- comment -%} Data Sharing {%- endcomment -%}
+        <section class="mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">4. Information We Share</h2>
+          <p class="text-gray-700 leading-relaxed mb-4">
+            We do not sell, trade, or rent your personal information to third parties. However, we may share your information with:
+          </p>
+          <ul class="space-y-3 mb-4">
+            <li class="flex gap-3">
+              <span class="text-pink-500 font-bold flex-shrink-0">•</span>
+              <span class="text-gray-700"><strong>Service Providers:</strong> Payment processors, shipping carriers, email platforms (Shopify ecosystem)</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="text-pink-500 font-bold flex-shrink-0">•</span>
+              <span class="text-gray-700"><strong>Legal Requirements:</strong> When required by law or to protect our rights</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="text-pink-500 font-bold flex-shrink-0">•</span>
+              <span class="text-gray-700"><strong>Business Transfers:</strong> In case of merger, acquisition, or bankruptcy</span>
+            </li>
+          </ul>
+        </section>
+
+        {%- comment -%} Data Security {%- endcomment -%}
+        <section class="mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">5. Data Security</h2>
+          <p class="text-gray-700 leading-relaxed mb-4">
+            We implement industry-standard security measures to protect your information, including:
+          </p>
+          <div class="bg-gray-50 p-6 rounded-lg mb-4">
+            <ul class="space-y-2">
+              <li class="flex gap-2">
+                <span class="text-pink-500">🔒</span>
+                <span class="text-gray-700">SSL/TLS encryption for data transmission</span>
+              </li>
+              <li class="flex gap-2">
+                <span class="text-pink-500">🔒</span>
+                <span class="text-gray-700">Secure server infrastructure hosted by Shopify</span>
+              </li>
+              <li class="flex gap-2">
+                <span class="text-pink-500">🔒</span>
+                <span class="text-gray-700">PCI DSS compliance for payment processing</span>
+              </li>
+              <li class="flex gap-2">
+                <span class="text-pink-500">🔒</span>
+                <span class="text-gray-700">Regular security audits and updates</span>
+              </li>
+            </ul>
+          </div>
+          <p class="text-gray-700 leading-relaxed">
+            <strong>Important:</strong> While we strive to protect your information, no method of transmission over the Internet is 100% secure. We cannot guarantee absolute security of your data.
+          </p>
+        </section>
+
+        {%- comment -%} Your Rights {%- endcomment -%}
+        <section class="mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">6. Your Privacy Rights</h2>
+          <p class="text-gray-700 leading-relaxed mb-4">
+            Depending on your location, you may have the following rights:
+          </p>
+          <ul class="space-y-3">
+            <li class="flex gap-3">
+              <span class="text-pink-500 font-bold flex-shrink-0">→</span>
+              <span class="text-gray-700"><strong>Right to Access:</strong> Request a copy of your personal data</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="text-pink-500 font-bold flex-shrink-0">→</span>
+              <span class="text-gray-700"><strong>Right to Correct:</strong> Correct inaccurate or incomplete data</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="text-pink-500 font-bold flex-shrink-0">→</span>
+              <span class="text-gray-700"><strong>Right to Delete:</strong> Request deletion of your data</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="text-pink-500 font-bold flex-shrink-0">→</span>
+              <span class="text-gray-700"><strong>Right to Opt-Out:</strong> Unsubscribe from marketing communications</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="text-pink-500 font-bold flex-shrink-0">→</span>
+              <span class="text-gray-700"><strong>Right to Portability:</strong> Request your data in portable format</span>
+            </li>
+          </ul>
+          <p class="text-gray-700 leading-relaxed mt-4">
+            To exercise these rights, please contact us at <a href="mailto:{{ shop.email }}" class="text-pink-500 hover:underline">{{ shop.email }}</a> or visit your account settings.
+          </p>
+        </section>
+
+        {%- comment -%} Cookies {%- endcomment -%}
+        <section class="mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">7. Cookies & Tracking Technologies</h2>
+          <p class="text-gray-700 leading-relaxed mb-4">
+            Our website uses cookies and similar technologies to enhance your experience, analyze usage, and deliver personalized content. You can control cookie settings through your browser preferences. Disabling cookies may limit website functionality.
+          </p>
+        </section>
+
+        {%- comment -%} Retention {%- endcomment -%}
+        <section class="mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">8. Data Retention</h2>
+          <p class="text-gray-700 leading-relaxed">
+            We retain your personal information for as long as necessary to provide our services, fulfill your requests, comply with legal obligations, and resolve disputes. You can request data deletion at any time by contacting us.
+          </p>
+        </section>
+
+        {%- comment -%} Contact {%- endcomment -%}
+        <section class="mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">9. Contact Us</h2>
+          <div class="bg-pink-50 p-6 rounded-lg">
+            <p class="text-gray-700 mb-4">
+              If you have questions about this Privacy Policy or our privacy practices, please contact us:
+            </p>
+            <div class="space-y-2">
+              <p class="text-gray-900 font-bold">La Hime</p>
+              <p class="text-gray-700">Email: <a href="mailto:{{ shop.email }}" class="text-pink-500 hover:underline">{{ shop.email }}</a></p>
+              <p class="text-gray-700">Website: <a href="{{ shop.url }}" class="text-pink-500 hover:underline">{{ shop.url }}</a></p>
+            </div>
+          </div>
+        </section>
+
+        {%- comment -%} Updates {%- endcomment -%}
+        <section>
+          <div class="border-t border-gray-200 pt-8">
+            <h2 class="text-xl font-bold text-gray-900 mb-2">10. Policy Updates</h2>
+            <p class="text-gray-700">
+              We may update this Privacy Policy periodically to reflect changes in our practices or legal requirements. We will notify you of significant changes by posting the new policy on this page and updating the "Last Updated" date. Your continued use of our Services constitutes acceptance of the updated Privacy Policy.
+            </p>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .font-serif-display {
+    font-family: 'Playfair Display', serif;
+  }
+  
+  .prose h2 {
+    border-bottom: 2px solid #f3f4f6;
+    padding-bottom: 1rem;
+  }
+</style>
             <span>Process orders and send confirmations</span>
           </li>
           <li class="flex gap-3">
