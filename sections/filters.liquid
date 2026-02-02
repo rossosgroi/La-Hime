@@ -1,0 +1,62 @@
+{% comment %}
+  Filters Section - La Hime
+  Reusable filtering and sorting tools for collections
+{% endcomment %}
+
+<div id="filters-section" class="bg-white border-b border-gray-200 sticky top-[64px] z-30 py-6">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+      
+      {%- comment -%} Filter Tags {%- endcomment -%}
+      <div class="w-full md:w-auto overflow-x-auto">
+        <div class="flex items-center gap-3 whitespace-nowrap" id="filter-tags">
+          <!-- Filter tags will be added here manually -->
+          <a href="#" class="px-5 py-2 rounded-full text-sm font-bold transition-all duration-300 border bg-black text-white border-black">
+            All
+          </a>
+          <a href="#" class="px-5 py-2 rounded-full text-sm font-bold transition-all duration-300 border bg-white text-gray-600 border-gray-300 hover:border-pink-500 hover:text-pink-600">
+            New
+          </a>
+          <a href="#" class="px-5 py-2 rounded-full text-sm font-bold transition-all duration-300 border bg-white text-gray-600 border-gray-300 hover:border-pink-500 hover:text-pink-600">
+            Sale
+          </a>
+        </div>
+      </div>
+
+      {%- comment -%} Sort & View Options {%- endcomment -%}
+      <div class="flex items-center gap-4 w-full md:w-auto justify-end">
+        <span class="text-sm text-gray-500 font-medium" id="item-count">0 items</span>
+        <select id="sort-select" class="appearance-none bg-white border border-gray-300 rounded-lg px-4 py-2 text-sm font-bold text-gray-900 cursor-pointer hover:border-gray-400 focus:outline-none focus:border-pink-500">
+          <option value="manual">Featured</option>
+          <option value="best-selling">Best Selling</option>
+          <option value="title-ascending">A-Z</option>
+          <option value="title-descending">Z-A</option>
+          <option value="price-ascending">Price: Low to High</option>
+          <option value="price-descending">Price: High to Low</option>
+          <option value="created-descending">Newest</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Filters",
+  "target": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_filters",
+      "label": "Show Filter Tags",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sort",
+      "label": "Show Sort Dropdown",
+      "default": true
+    }
+  ]
+}
+{% endschema %}
