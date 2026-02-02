@@ -1,37 +1,9 @@
-
 {
   "sections": {
-    "test": {
-      "type": "test-section",
-      "settings": {}
-    },
-    "announcement-bar": {
-      "type": "announcement-bar",
-      "settings": {}
-    },
-    "hero": {
-      "type": "hero-section",
-      "settings": {}
-    },
-    "filters": {
-      "type": "filters",
-      "settings": {}
-    },
     "main": {
-      "type": "collection-template",
-      "settings": {}
-    },
-    "newsletter": {
-      "type": "newsletter-section",
+      "type": "collection",
       "settings": {}
     }
   },
-  "order": [
-    "test",
-    "announcement-bar",
-    "hero",
-    "filters",
-    "main",
-    "newsletter"
-  ]
+  "order": ["main"]
 }
