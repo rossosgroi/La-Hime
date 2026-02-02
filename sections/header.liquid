@@ -153,6 +153,9 @@
     
     {%- comment -%} Sidebar Navigation Links {%- endcomment -%}
     <nav class="space-y-1 mb-8">
+      <a href="/" class="block px-4 py-3 rounded-lg text-gray-700 hover:bg-pink-50 hover:text-pink-600 transition-colors font-medium">
+        Home
+      </a>
       <a href="/collections/all" class="block px-4 py-3 rounded-lg text-gray-700 hover:bg-pink-50 hover:text-pink-600 transition-colors font-medium">
         Shop
       </a>
@@ -162,11 +165,6 @@
       <a href="/pages/contact" class="block px-4 py-3 rounded-lg text-gray-700 hover:bg-pink-50 hover:text-pink-600 transition-colors font-medium">
         Contact
       </a>
-      {% for link in linklists.main-menu.links %}
-        <a href="{{ link.url }}" class="block px-4 py-3 rounded-lg text-gray-700 hover:bg-pink-50 hover:text-pink-600 transition-colors font-medium">
-          {{ link.title }}
-        </a>
-      {% endfor %}
     </nav>
 
     {%- comment -%} Sidebar Footer {%- endcomment -%}
