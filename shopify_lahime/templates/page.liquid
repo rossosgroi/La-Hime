@@ -1,0 +1,14 @@
+{% comment %}
+  Page Template - La Hime
+  Default template for static pages
+{% endcomment %}
+
+<div class="pt-32 pb-24 min-h-screen bg-white">
+  <div class="max-w-5xl mx-auto px-6">
+    <h1 class="font-serif-display text-4xl lg:text-5xl mb-8 text-gray-900 text-center">{{ page.title }}</h1>
+    
+    <div class="prose prose-lg max-w-none text-gray-700">
+      {{ page.content }}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,88 @@
+{% comment %}
+  Featured Collection Section - La Hime
+  Displays featured products from a selected collection
+{% endcomment %}
+
+<section class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+  <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+    <div>
+      <h2 class="font-brand text-5xl text-gray-900 mb-2">{{ section.settings.section_title | default: "New Drops" }}</h2>
+      <div class="h-1 w-20 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full"></div>
+    </div>
+    <a href="{{ section.settings.collection_link | default: '/collections/all' }}" class="hidden md:flex items-center gap-2 text-gray-500 hover:text-pink-600 transition-colors uppercase text-sm font-bold tracking-widest group">
+      {{ section.settings.view_all_text | default: "View All Collection" }}
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="group-hover:translate-x-1 transition-transform">
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+        <polyline points="12 5 19 12 12 19"></polyline>
+      </svg>
+    </a>
+  </div>
+
+  {% if section.settings.collection != blank %}
+    {% assign featured_collection = collections[section.settings.collection] %}
+    {% assign product_limit = section.settings.product_count | default: 4 %}
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
+      {% for product in featured_collection.products limit: product_limit %}
+        {% render 'product-card', product: product %}
+      {% endfor %}
+    </div>
+  {% else %}
+    {%- comment -%} Fallback to all products if no collection selected {%- endcomment -%}
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
+      {% for product in collections.all.products limit: 4 %}
+        {% render 'product-card', product: product %}
+      {% endfor %}
+    </div>
+  {% endif %}
+  
+  <div class="mt-12 text-center md:hidden">
+    <a href="{{ section.settings.collection_link | default: '/collections/all' }}" class="inline-block border-b-2 border-black pb-1 uppercase font-bold text-sm tracking-widest">
+      {{ section.settings.view_all_text | default: "View All Collection" }}
+    </a>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Collection",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "New Drops"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection to Display"
+    },
+    {
+      "type": "range",
+      "id": "product_count",
+      "label": "Number of Products",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "label": "View All Button Text",
+      "default": "View All Collection"
+    },
+    {
+      "type": "url",
+      "id": "collection_link",
+      "label": "Collection Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Collection"
+    }
+  ]
+}
+{% endschema %}

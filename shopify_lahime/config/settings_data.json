@@ -1,0 +1,34 @@
+{
+  "current": {
+    "color_primary": "#ec4899",
+    "color_secondary": "#000000",
+    "color_accent": "#f472b6",
+    "font_heading": "Playfair Display",
+    "font_body": "Inter",
+    "logo_width": 120,
+    "cart_type": "drawer",
+    "cart_notes_enable": true,
+    "products_per_row_desktop": 4,
+    "products_per_row_mobile": 1,
+    "product_hover_image": true,
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {}
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "footer_title": "La Hime",
+          "footer_description": "Sweet & Spicy. A fusion of Tokyo aesthetic and Shanghai streetwear for the modern fashion enthusiast."
+        }
+      }
+    },
+    "content_for_index": [
+      "hero-home",
+      "featured-collection",
+      "banner-aesthetic",
+      "newsletter"
+    ]
+  }
+}
