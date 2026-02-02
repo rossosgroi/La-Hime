@@ -3,149 +3,219 @@
   Displays all products with tag filtering and sort options
 {% endcomment %}
 
-<div class="pt-32 pb-24 min-h-screen bg-white">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    
-    {%- comment -%} Breadcrumb & Title {%- endcomment -%}
-    <div class="mb-12">
-      <div class="text-sm text-gray-500 mb-6 flex items-center gap-2">
-        <a href="/" class="hover:text-black transition-colors">Home</a>
-        <span>/</span>
-        <span class="text-black font-medium">Shop</span>
-      </div>
+<div class="pt-24 min-h-screen bg-stone-50">
+  
+  {%- comment -%} Header {%- endcomment -%}
+  <div class="bg-pink-50 border-b border-pink-100 py-12 mb-0">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <h1 class="font-serif-display text-4xl md:text-5xl text-gray-900 mb-3">
+        All Collections
+      </h1>
+      <p class="text-gray-500">Find your new obsession.</p>
+    </div>
+  </div>
 
-      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <div>
-          <h1 class="font-serif-display text-5xl text-gray-900 mb-2">
-            Shop
-          </h1>
-          <p class="text-gray-600">
-            Discover our curated collection of pieces
-          </p>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 relative">
+    
+    {%- comment -%} Sticky Filter Bar {%- endcomment -%}
+    <div class="sticky top-[64px] z-40 bg-stone-50/95 backdrop-blur-md border-b border-gray-200 py-4 mb-8 -mx-4 px-4 sm:mx-0 sm:px-0 sm:bg-transparent sm:backdrop-blur-none sm:static sm:border-b-0 sm:py-8 sm:mb-4">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        
+        {%- comment -%} Horizontal Scroll Categories {%- endcomment -%}
+        <div class="w-full md:w-auto overflow-x-auto no-scrollbar">
+          <div class="flex items-center gap-2" id="category-filters">
+            <button
+              class="category-filter active whitespace-nowrap px-5 py-2 rounded-full text-sm font-bold transition-all duration-300 border"
+              data-category="all"
+            >
+              All
+            </button>
+            <button
+              class="category-filter whitespace-nowrap px-5 py-2 rounded-full text-sm font-bold transition-all duration-300 border"
+              data-category="dresses"
+            >
+              Dresses
+            </button>
+            <button
+              class="category-filter whitespace-nowrap px-5 py-2 rounded-full text-sm font-bold transition-all duration-300 border"
+              data-category="tops"
+            >
+              Tops
+            </button>
+            <button
+              class="category-filter whitespace-nowrap px-5 py-2 rounded-full text-sm font-bold transition-all duration-300 border"
+              data-category="bottoms"
+            >
+              Bottoms
+            </button>
+            <button
+              class="category-filter whitespace-nowrap px-5 py-2 rounded-full text-sm font-bold transition-all duration-300 border"
+              data-category="accessories"
+            >
+              Accessories
+            </button>
+            <button
+              class="category-filter whitespace-nowrap px-5 py-2 rounded-full text-sm font-bold transition-all duration-300 border"
+              data-category="shoes"
+            >
+              Shoes
+            </button>
+          </div>
+        </div>
+
+        {%- comment -%} Sort & Stats {%- endcomment -%}
+        <div class="w-full md:w-auto flex justify-between md:justify-end items-center gap-4 border-t md:border-t-0 border-gray-200 pt-3 md:pt-0">
+          <span class="text-sm text-gray-400 font-medium" id="product-count">
+            <span id="visible-count">8</span> Results
+          </span>
+          
+          <div class="relative group">
+            <div class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
+            <select 
+              id="sort-select"
+              class="appearance-none bg-white border border-gray-200 rounded-full pl-5 pr-10 py-2 text-sm font-bold text-gray-900 focus:outline-none focus:border-black cursor-pointer shadow-sm hover:shadow-md transition-shadow"
+            >
+              <option value="newest">Newest In</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+            </select>
+          </div>
         </div>
       </div>
     </div>
 
-    {%- comment -%} Sort Bar {%- endcomment -%}
-    <div class="flex items-center justify-between mb-8 pb-6 border-b border-gray-200">
-      <div class="text-sm text-gray-600">
-        {% if collection.all_products_count > 0 %}
-          Showing {{ collection.products | size }} of {{ collection.all_products_count }} products
-        {% endif %}
-      </div>
-      
-      <div class="flex items-center gap-4">
-        <label for="sort-select" class="text-sm font-bold text-gray-900">Sort by:</label>
-        <select id="sort-select" class="px-4 py-2 border border-gray-200 rounded-full text-sm font-bold hover:border-gray-900 transition-colors">
-          <option value="">Newest</option>
-          <option value="best-selling">Best Selling</option>
-          <option value="title-ascending">A - Z</option>
-          <option value="title-descending">Z - A</option>
-          <option value="price-ascending">Price: Low to High</option>
-          <option value="price-descending">Price: High to Low</option>
-        </select>
-      </div>
-    </div>
-
     {%- comment -%} Product Grid with Placeholders {%- endcomment -%}
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-      {% assign products = collection.products %}
-      
-      {% if products.size == 0 %}
-        {%- comment -%} Placeholder Products {%- endcomment -%}
-        {% for i in (1..8) %}
-          <div class="group cursor-pointer transform transition-all duration-300 hover:-translate-y-2">
-            <div class="relative aspect-[3/4] bg-gradient-to-br from-pink-50 to-purple-50 rounded-xl overflow-hidden mb-4 shadow-sm group-hover:shadow-lg flex items-center justify-center">
-              <div class="text-center px-4">
-                <p class="font-serif-display text-4xl text-pink-500 font-bold">La Hime</p>
-              </div>
+    <div class="min-h-[400px]">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12" id="product-grid">
+        {% assign products = collection.products %}
+        
+        {% if products.size == 0 %}
+          {%- comment -%} Placeholder Products with Categories {%- endcomment -%}
+          {% assign placeholder_categories = "dresses,tops,bottoms,dresses,accessories,tops,shoes,bottoms" | split: "," %}
+          {% for i in (1..8) %}
+            <div class="product-card group cursor-pointer transform transition-all duration-300 hover:-translate-y-2" data-category="{{ placeholder_categories[forloop.index0] }}" data-price="{{ i | times: 45 | plus: 50 }}">
+              <div class="relative aspect-[3/4] bg-gradient-to-br from-pink-50 to-purple-50 rounded-xl overflow-hidden mb-4 shadow-sm group-hover:shadow-lg flex items-center justify-center">
+                <div class="text-center px-4">
+                  <p class="font-serif-display text-4xl text-pink-500 font-bold">La Hime</p>
+                  <p class="text-sm text-gray-500 mt-2 capitalize">{{ placeholder_categories[forloop.index0] }}</p>
+                </div>
 
-              <span class="absolute top-3 left-3 bg-black text-white text-xs font-bold px-2 py-1 rounded-full uppercase">
-                New
-              </span>
-
-              <button 
-                class="absolute bottom-4 right-4 p-2 bg-white rounded-full shadow-lg hover:bg-pink-500 hover:text-white transition-all duration-200 transform opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0"
-                aria-label="Add to wishlist"
-              >
-                ♡
-              </button>
-            </div>
-
-            <h3 class="font-bold text-gray-900 mb-1 group-hover:text-pink-500 transition-colors">
-              La Hime Collection
-            </h3>
-            <p class="text-gray-600 text-sm mb-3">
-              ${{ i | times: 45 | plus: 50 }}.00
-            </p>
-
-            <button 
-              class="w-full py-2 bg-black text-white rounded-full text-sm font-bold hover:bg-pink-500 transition-colors duration-200"
-            >
-              Add to Cart
-            </button>
-          </div>
-        {% endfor %}
-      {% else %}
-        {%- comment -%} Actual Products {%- endcomment -%}
-        {% for product in products %}
-          <div class="group cursor-pointer transform transition-all duration-300 hover:-translate-y-2">
-            <div class="relative aspect-[3/4] bg-gray-100 rounded-xl overflow-hidden mb-4 shadow-sm group-hover:shadow-lg">
-              {% if product.featured_image %}
-                <img 
-                  src="{{ product.featured_image | image_url: width: 350, height: 480 }}" 
-                  alt="{{ product.title }}"
-                  loading="lazy"
-                  class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                />
-              {% endif %}
-
-              {% if product.images.size > 1 %}
-                <img 
-                  src="{{ product.images[1] | image_url: width: 350, height: 480 }}" 
-                  alt="{{ product.title }} alternate view"
-                  class="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                />
-              {% endif %}
-
-              {% if product.tags contains 'new' %}
                 <span class="absolute top-3 left-3 bg-black text-white text-xs font-bold px-2 py-1 rounded-full uppercase">
                   New
                 </span>
-              {% endif %}
 
-              <button 
-                class="absolute bottom-4 right-4 p-2 bg-white rounded-full shadow-lg hover:bg-pink-500 hover:text-white transition-all duration-200 transform opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 wishlist-toggle"
-                data-product-id="{{ product.id }}"
-                data-product-title="{{ product.title }}"
-                data-product-image="{{ product.featured_image | image_url }}"
-                aria-label="Add to wishlist"
-              >
-                ♡
-              </button>
-            </div>
+                <button 
+                  class="wishlist-toggle absolute bottom-4 right-4 p-2 bg-white rounded-full shadow-lg hover:bg-pink-500 hover:text-white transition-all duration-200 transform opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0"
+                  aria-label="Add to wishlist"
+                  onclick="event.preventDefault(); event.stopPropagation();"
+                >
+                  ♡
+                </button>
+              </div>
 
-            <a href="{{ product.url }}" class="block">
-              <h3 class="font-bold text-gray-900 mb-1 group-hover:text-pink-500 transition-colors line-clamp-2">
-                {{ product.title }}
+              <h3 class="font-bold text-gray-900 mb-1 group-hover:text-pink-500 transition-colors">
+                La Hime {{ placeholder_categories[forloop.index0] | capitalize }}
               </h3>
               <p class="text-gray-600 text-sm mb-3">
-                {{ product.price | money }}
+                ${{ i | times: 45 | plus: 50 }}.00
               </p>
-            </a>
 
-            <form action="/cart/add" method="post" class="add-to-cart-form">
-              <input type="hidden" name="id" value="{{ product.variants.first.id }}">
               <button 
-                type="submit"
                 class="w-full py-2 bg-black text-white rounded-full text-sm font-bold hover:bg-pink-500 transition-colors duration-200"
               >
                 Add to Cart
               </button>
-            </form>
-          </div>
-        {% endfor %}
-      {% endif %}
+            </div>
+          {% endfor %}
+        {% else %}
+          {%- comment -%} Actual Products {%- endcomment -%}
+          {% for product in products %}
+            {% assign product_category = "all" %}
+            {% for tag in product.tags %}
+              {% if tag == "dresses" or tag == "tops" or tag == "bottoms" or tag == "accessories" or tag == "shoes" %}
+                {% assign product_category = tag %}
+              {% endif %}
+            {% endfor %}
+            
+            <div class="product-card group cursor-pointer transform transition-all duration-300 hover:-translate-y-2" data-category="{{ product_category }}" data-price="{{ product.price }}">
+              <div class="relative aspect-[3/4] bg-gray-100 rounded-xl overflow-hidden mb-4 shadow-sm group-hover:shadow-lg">
+                {% if product.featured_image %}
+                  <img 
+                    src="{{ product.featured_image | image_url: width: 350, height: 480 }}" 
+                    alt="{{ product.title }}"
+                    loading="lazy"
+                    class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                {% endif %}
+
+                {% if product.images.size > 1 %}
+                  <img 
+                    src="{{ product.images[1] | image_url: width: 350, height: 480 }}" 
+                    alt="{{ product.title }} alternate view"
+                    class="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  />
+                {% endif %}
+
+                {% if product.tags contains 'new' %}
+                  <span class="absolute top-3 left-3 bg-black text-white text-xs font-bold px-2 py-1 rounded-full uppercase">
+                    New
+                  </span>
+                {% endif %}
+
+                <button 
+                  class="wishlist-toggle absolute bottom-4 right-4 p-2 bg-white rounded-full shadow-lg hover:bg-pink-500 hover:text-white transition-all duration-200 transform opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0"
+                  data-product-id="{{ product.id }}"
+                  data-product-title="{{ product.title }}"
+                  data-product-image="{{ product.featured_image | image_url }}"
+                  data-product-price="{{ product.price | money }}"
+                  data-product-url="{{ product.url }}"
+                  aria-label="Add to wishlist"
+                  onclick="event.preventDefault(); event.stopPropagation();"
+                >
+                  ♡
+                </button>
+              </div>
+
+              <a href="{{ product.url }}" class="block">
+                <h3 class="font-bold text-gray-900 mb-1 group-hover:text-pink-500 transition-colors line-clamp-2">
+                  {{ product.title }}
+                </h3>
+                <p class="text-gray-600 text-sm mb-3">
+                  {{ product.price | money }}
+                </p>
+              </a>
+
+              <form action="/cart/add" method="post" class="add-to-cart-form">
+                <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                <button 
+                  type="submit"
+                  class="w-full py-2 bg-black text-white rounded-full text-sm font-bold hover:bg-pink-500 transition-colors duration-200"
+                >
+                  Add to Cart
+                </button>
+              </form>
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+
+      {%- comment -%} Empty State {%- endcomment -%}
+      <div id="empty-state" class="hidden text-center py-24 text-gray-400 flex flex-col items-center">
+        <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+          <svg class="w-8 h-8 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
+          </svg>
+        </div>
+        <p class="text-xl font-serif-display text-gray-900 mb-2">No items found</p>
+        <p class="text-sm text-gray-500 mb-6">Try adjusting your filters or category.</p>
+        <button onclick="resetFilters()" class="text-pink-600 font-bold underline hover:text-black transition-colors">
+          View All Items
+        </button>
+      </div>
     </div>
   </div>
 </div>
@@ -153,7 +223,132 @@
 <style>
   .font-serif-display { font-family: 'Playfair Display', serif; }
   .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  
+  /* Category Filter Styles */
+  .category-filter {
+    background-color: white;
+    color: #6b7280;
+    border-color: #e5e7eb;
+  }
+
+  .category-filter:hover {
+    border-color: #fbcfe8;
+    color: #ec4899;
+  }
+
+  .category-filter.active {
+    background-color: black;
+    color: white;
+    border-color: black;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    transform: scale(1.05);
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    let currentCategory = 'all';
+    let currentSort = 'newest';
+
+    // Category Filter
+    const categoryFilters = document.querySelectorAll('.category-filter');
+    const productCards = document.querySelectorAll('.product-card');
+    const emptyState = document.getElementById('empty-state');
+    const visibleCount = document.getElementById('visible-count');
+
+    categoryFilters.forEach(filter => {
+      filter.addEventListener('click', function() {
+        currentCategory = this.getAttribute('data-category');
+        
+        // Update active filter
+        categoryFilters.forEach(f => f.classList.remove('active'));
+        this.classList.add('active');
+        
+        filterProducts();
+      });
+    });
+
+    // Sort Functionality
+    const sortSelect = document.getElementById('sort-select');
+    sortSelect.addEventListener('change', function() {
+      currentSort = this.value;
+      sortProducts();
+    });
+
+    function filterProducts() {
+      let visibleProducts = 0;
+      
+      productCards.forEach(card => {
+        const category = card.getAttribute('data-category');
+        
+        if (currentCategory === 'all' || category === currentCategory) {
+          card.style.display = 'block';
+          visibleProducts++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // Update count
+      visibleCount.textContent = visibleProducts;
+
+      // Show/hide empty state
+      if (visibleProducts === 0) {
+        document.getElementById('product-grid').style.display = 'none';
+        emptyState.classList.remove('hidden');
+        emptyState.style.display = 'flex';
+      } else {
+        document.getElementById('product-grid').style.display = 'grid';
+        emptyState.classList.add('hidden');
+        emptyState.style.display = 'none';
+      }
+
+      sortProducts();
+    }
+
+    function sortProducts() {
+      const grid = document.getElementById('product-grid');
+      const cards = Array.from(productCards).filter(card => card.style.display !== 'none');
+      
+      cards.sort((a, b) => {
+        const priceA = parseFloat(a.getAttribute('data-price'));
+        const priceB = parseFloat(b.getAttribute('data-price'));
+        
+        switch(currentSort) {
+          case 'price-low':
+            return priceA - priceB;
+          case 'price-high':
+            return priceB - priceA;
+          case 'newest':
+          default:
+            return 0; // Keep original order
+        }
+      });
+
+      // Reorder in DOM
+      cards.forEach(card => grid.appendChild(card));
+    }
+
+    window.resetFilters = function() {
+      currentCategory = 'all';
+      categoryFilters.forEach(f => f.classList.remove('active'));
+      categoryFilters[0].classList.add('active');
+      filterProducts();
+    };
+
+    // Initial count
+    visibleCount.textContent = productCards.length;
+  });
+</script>
 
 {% schema %}
 {
@@ -161,3 +356,4 @@
   "templates": ["collection"]
 }
 {% endschema %}
+
