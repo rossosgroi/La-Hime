@@ -22,7 +22,7 @@
       </button>
 
       {%- comment -%} CENTER: Logo {%- endcomment -%}
-      <a href="/" class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center z-30 transition-transform hover:scale-105">
+      <a href="/" class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center z-30 transition-transform duration-300 hover:scale-110 cursor-pointer">
         {% if section.settings.logo %}
           <img
             src="{{ section.settings.logo | image_url: width: 400 }}"
@@ -143,15 +143,17 @@
   <div class="p-6">
     {%- comment -%} Sidebar Header {%- endcomment -%}
     <div class="flex justify-between items-center mb-8">
-      {% if section.settings.logo %}
-        <img
-          src="{{ section.settings.logo | image_url: width: 300 }}"
-          alt="{{ shop.name }}"
-          class="h-16 w-auto"
-        />
-      {% else %}
-        <span class="font-brand text-3xl text-pink-500">La Hime</span>
-      {% endif %}
+      <a href="/" class="transition-transform duration-300 hover:scale-110 cursor-pointer block">
+        {% if section.settings.logo %}
+          <img
+            src="{{ section.settings.logo | image_url: width: 300 }}"
+            alt="{{ shop.name }}"
+            class="h-16 w-auto"
+          />
+        {% else %}
+          <span class="font-brand text-3xl text-pink-500">La Hime</span>
+        {% endif %}
+      </a>
       <button 
         onclick="toggleSidebar()" 
         class="p-2 hover:bg-gray-100 rounded-full transition-colors"
