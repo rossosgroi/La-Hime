@@ -1,0 +1,60 @@
+{% comment %}
+  Related Products Section
+{% endcomment %}
+
+<section class="related-products" style="margin-top: 4rem;">
+  <div class="container">
+    <h2>You Might Also Like</h2>
+    
+    <div class="product-grid">
+      {% assign related = collection.products | limit: 4 %}
+      {% for product in related %}
+        {% unless product.handle == page.handle %}
+          <div class="product-card">
+            <a href="{{ product.url }}">
+              <div class="product-image">
+                {% if product.featured_image %}
+                  <img 
+                    src="{{ product.featured_image | image_url: width: 300 }}" 
+                    alt="{{ product.title }}"
+                    loading="lazy"
+                  >
+                {% endif %}
+              </div>
+              <div class="product-info">
+                <h3 class="product-name">{{ product.title }}</h3>
+                <p class="product-price">{{ product.price | money }}</p>
+              </div>
+            </a>
+            <div class="product-actions">
+              <button 
+                class="add-to-cart-btn"
+                data-product-id="{{ product.id }}"
+                data-product-title="{{ product.title }}"
+                data-product-price="{{ product.price | money }}"
+                data-product-image="{{ product.featured_image | image_url }}"
+              >
+                Add to Cart
+              </button>
+              <button 
+                class="wishlist-btn"
+                data-product-id="{{ product.id }}"
+                data-product-title="{{ product.title }}"
+                data-product-price="{{ product.price | money }}"
+                data-product-image="{{ product.featured_image | image_url }}"
+              >
+                ♡
+              </button>
+            </div>
+          </div>
+        {% endunless %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Related Products"
+}
+{% endschema %}

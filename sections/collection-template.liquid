@@ -1,0 +1,91 @@
+{% comment %}
+  Collection Template Section
+{% endcomment %}
+
+<section class="collection-template">
+  <div class="collection-hero">
+    <h1>{{ collection.title }}</h1>
+    {% if collection.description %}
+      <p>{{ collection.description }}</p>
+    {% endif %}
+  </div>
+
+  <div class="container">
+    <div class="la-section-header">
+      <div>
+        <h2 class="font-brand la-section-title">{{ collection.title }}</h2>
+        <div class="la-section-underline"></div>
+      </div>
+    </div>
+
+    <div class="la-product-grid">
+      {% for product in collection.products %}
+        <div class="la-product-card">
+          <a href="{{ product.url }}" class="la-product-link">
+            <div class="la-product-frame">
+              <div class="la-product-media">
+                {% if product.tags contains 'new' %}
+                  <span class="la-product-badge">New</span>
+                {% endif %}
+                {% if product.featured_image %}
+                  <img
+                    src="{{ product.featured_image | image_url: width: 500 }}"
+                    alt="{{ product.title }}"
+                    class="la-product-image is-primary"
+                    loading="lazy"
+                  >
+                {% endif %}
+                {% if product.images.size > 1 %}
+                  <img
+                    src="{{ product.images[1] | image_url: width: 500 }}"
+                    alt="{{ product.title }}"
+                    class="la-product-image is-hover"
+                    loading="lazy"
+                  >
+                {% endif %}
+                <div class="la-product-actions">
+                  <button
+                    class="wishlist-btn"
+                    data-product-id="{{ product.id }}"
+                    data-product-title="{{ product.title }}"
+                    data-product-price="{{ product.price | money }}"
+                    data-product-image="{{ product.featured_image | image_url }}"
+                    aria-label="Add to wishlist"
+                  >
+                    ♡
+                  </button>
+                  <button
+                    class="add-to-cart-btn"
+                    data-product-id="{{ product.id }}"
+                    data-product-title="{{ product.title }}"
+                    data-product-price="{{ product.price | money }}"
+                    data-product-image="{{ product.featured_image | image_url }}"
+                    aria-label="Add to cart"
+                  >
+                    👜
+                  </button>
+                </div>
+              </div>
+              <div class="la-product-info">
+                <h3 class="font-serif-display">{{ product.title }}</h3>
+                <p class="la-product-price">{{ product.price | money }}</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+
+    {% if collection.products.size == 0 %}
+      <p style="text-align: center; padding: 3rem; color: #999;">
+        No products found in this collection.
+      </p>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection Template"
+}
+{% endschema %}

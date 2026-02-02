@@ -1,0 +1,88 @@
+{% comment %}
+  Hero Section - La Hime Homepage
+{% endcomment %}
+
+<section class="la-hero">
+  <div class="la-hero-overlay la-hero-overlay-top"></div>
+  <div class="la-hero-overlay la-hero-overlay-bottom"></div>
+  <div class="la-hero-noise"></div>
+
+  <div class="la-hero-star la-star-1"></div>
+  <div class="la-hero-star la-star-2"></div>
+  <div class="la-hero-star la-star-3"></div>
+  <div class="la-hero-star la-star-4"></div>
+
+  <div class="la-hero-content">
+    {% if section.settings.badge_text != blank %}
+      <div class="la-hero-badge">
+        {{ section.settings.badge_text }}
+      </div>
+    {% endif %}
+
+    <h1 class="la-hero-title font-brand">
+      Sweet and <span>Spicy</span>
+    </h1>
+
+    <div class="la-hero-actions">
+      <a href="{{ section.settings.button_link }}" class="la-btn la-btn-primary">
+        {{ section.settings.button_text | default: 'Shop New Arrivals' }}
+      </a>
+      <a href="{{ section.settings.secondary_button_link }}" class="la-btn la-btn-outline">
+        {{ section.settings.secondary_button_text | default: 'Our Story' }}
+      </a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Text",
+      "default": "The 2026 Collection"
+    },
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": "Hero Title",
+      "default": "Sweet and Spicy"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Bridging the gap between fantasy and reality. Our collection fuses the soft nostalgia of early 2000s Tokyo with a sharp, modern edge."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Primary Button Text",
+      "default": "Shop New Arrivals"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Primary Button Link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_text",
+      "label": "Secondary Button Text",
+      "default": "Our Story"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_link",
+      "label": "Secondary Button Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    }
+  ]
+}
+{% endschema %}

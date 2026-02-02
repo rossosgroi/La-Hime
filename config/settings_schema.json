@@ -1,36 +1,48 @@
 [
   {
-    "name": "theme_info",
-    "theme_name": "La Hime",
-    "theme_version": "1.0.0",
-    "theme_author": "La Hime Studios",
-    "theme_documentation_url": "https://lahime.com/docs",
-    "theme_support_url": "https://lahime.com/support"
-  },
-  {
-    "name": "Colors",
+    "name": "Theme Colors",
     "settings": [
-      {
-        "type": "header",
-        "content": "Brand Colors"
-      },
       {
         "type": "color",
         "id": "color_primary",
         "label": "Primary Color",
-        "default": "#ec4899"
+        "default": "#000000"
       },
       {
         "type": "color",
         "id": "color_secondary",
         "label": "Secondary Color",
-        "default": "#000000"
+        "default": "#ec4899"
       },
       {
         "type": "color",
         "id": "color_accent",
         "label": "Accent Color",
-        "default": "#f472b6"
+        "default": "#a855f7"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Text Color",
+        "default": "#1a1a1a"
+      },
+      {
+        "type": "color",
+        "id": "color_text_light",
+        "label": "Light Text Color",
+        "default": "#666666"
+      },
+      {
+        "type": "color",
+        "id": "color_border",
+        "label": "Border Color",
+        "default": "#e5e5e5"
+      },
+      {
+        "type": "color",
+        "id": "color_background",
+        "label": "Background Color",
+        "default": "#ffffff"
       }
     ]
   },
@@ -38,108 +50,31 @@
     "name": "Typography",
     "settings": [
       {
-        "type": "header",
-        "content": "Font Settings"
-      },
-      {
-        "type": "select",
-        "id": "font_heading",
-        "label": "Heading Font",
-        "options": [
-          { "value": "Inter", "label": "Inter" },
-          { "value": "Playfair Display", "label": "Playfair Display" },
-          { "value": "Pacifico", "label": "Pacifico" }
-        ],
-        "default": "Playfair Display"
-      },
-      {
-        "type": "select",
+        "type": "font_picker",
         "id": "font_body",
         "label": "Body Font",
-        "options": [
-          { "value": "Inter", "label": "Inter" },
-          { "value": "Roboto", "label": "Roboto" },
-          { "value": "Open Sans", "label": "Open Sans" }
-        ],
-        "default": "Inter"
+        "default": "poppins_n4"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_heading",
+        "label": "Heading Font",
+        "default": "playfair_display_n7"
       }
     ]
   },
   {
-    "name": "Logo",
+    "name": "Navigation",
     "settings": [
       {
-        "type": "image_picker",
-        "id": "logo",
-        "label": "Logo Image"
+        "type": "link_list",
+        "id": "main_menu",
+        "label": "Main Menu"
       },
       {
-        "type": "range",
-        "id": "logo_width",
-        "label": "Logo Width (px)",
-        "min": 50,
-        "max": 300,
-        "step": 10,
-        "default": 120
-      },
-      {
-        "type": "image_picker",
-        "id": "favicon",
-        "label": "Favicon"
-      }
-    ]
-  },
-  {
-    "name": "Cart",
-    "settings": [
-      {
-        "type": "header",
-        "content": "Cart Settings"
-      },
-      {
-        "type": "select",
-        "id": "cart_type",
-        "label": "Cart Type",
-        "options": [
-          { "value": "drawer", "label": "Drawer (Slide-out)" },
-          { "value": "page", "label": "Page" }
-        ],
-        "default": "drawer"
-      },
-      {
-        "type": "checkbox",
-        "id": "cart_notes_enable",
-        "label": "Enable cart notes",
-        "default": true
-      }
-    ]
-  },
-  {
-    "name": "Product Grid",
-    "settings": [
-      {
-        "type": "range",
-        "id": "products_per_row_desktop",
-        "label": "Products per row (desktop)",
-        "min": 2,
-        "max": 5,
-        "step": 1,
-        "default": 4
-      },
-      {
-        "type": "range",
-        "id": "products_per_row_mobile",
-        "label": "Products per row (mobile)",
-        "min": 1,
-        "max": 2,
-        "step": 1,
-        "default": 1
-      },
-      {
-        "type": "checkbox",
-        "id": "product_hover_image",
-        "label": "Show second image on hover",
-        "default": true
+        "type": "link_list",
+        "id": "footer_menu",
+        "label": "Footer Menu"
       }
     ]
   },
@@ -147,53 +82,19 @@
     "name": "Social Media",
     "settings": [
       {
-        "type": "header",
-        "content": "Social Links"
+        "type": "text",
+        "id": "instagram_handle",
+        "label": "Instagram Handle"
       },
       {
-        "type": "url",
-        "id": "social_instagram_link",
-        "label": "Instagram"
+        "type": "text",
+        "id": "twitter_handle",
+        "label": "Twitter Handle"
       },
       {
-        "type": "url",
-        "id": "social_facebook_link",
-        "label": "Facebook"
-      },
-      {
-        "type": "url",
-        "id": "social_twitter_link",
-        "label": "Twitter"
-      },
-      {
-        "type": "url",
-        "id": "social_pinterest_link",
-        "label": "Pinterest"
-      },
-      {
-        "type": "url",
-        "id": "social_tiktok_link",
-        "label": "TikTok"
-      }
-    ]
-  },
-  {
-    "name": "Checkout",
-    "settings": [
-      {
-        "type": "header",
-        "content": "Checkout Settings"
-      },
-      {
-        "type": "image_picker",
-        "id": "checkout_logo",
-        "label": "Checkout Logo"
-      },
-      {
-        "type": "color",
-        "id": "checkout_accent_color",
-        "label": "Checkout Accent Color",
-        "default": "#ec4899"
+        "type": "text",
+        "id": "facebook_page",
+        "label": "Facebook Page"
       }
     ]
   }

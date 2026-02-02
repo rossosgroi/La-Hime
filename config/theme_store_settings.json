@@ -1,0 +1,31 @@
+{
+  "current": {
+    "sections": {
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "settings": {
+          "announcement_text": "Free shipping on orders over $150",
+          "bg_color": "#ec4899",
+          "text_color": "#ffffff"
+        }
+      },
+      "header": {
+        "type": "header",
+        "settings": {
+          "logo": "",
+          "header_bg": "#ffffff"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "footer_description": "Sweet & Spicy. A fusion of Tokyo aesthetic and Shanghai streetwear for the modern fashion enthusiast.",
+          "footer_text": "Made with ♥",
+          "instagram_url": "https://instagram.com",
+          "twitter_url": "https://twitter.com"
+        }
+      }
+    },
+    "content_for_index": []
+  }
+}

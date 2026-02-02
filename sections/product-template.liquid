@@ -1,0 +1,107 @@
+{% comment %}
+  Product Template Section - Individual Product Page
+{% endcomment %}
+
+<section class="product-detail">
+  <div class="product-gallery">
+    <div class="gallery-main">
+      {% if product.featured_image %}
+        <img 
+          src="{{ product.featured_image | image_url: width: 800 }}" 
+          alt="{{ product.title }}"
+          id="main-product-image"
+        >
+      {% endif %}
+    </div>
+    
+    {% if product.images.size > 1 %}
+      <div class="gallery-thumbs">
+        {% for image in product.images %}
+          <div class="gallery-thumb {% if forloop.first %}active{% endif %}" onclick="updateMainImage('{{ image | image_url: width: 800 }}')">
+            <img src="{{ image | image_url: width: 100 }}" alt="{{ product.title }}">
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="product-details">
+    <h1>{{ product.title }}</h1>
+    
+    <div class="product-meta">
+      <span class="product-price">{{ product.price | money }}</span>
+      {% if product.available == false %}
+        <span style="color: #dc2626;">Out of Stock</span>
+      {% else %}
+        <span style="color: #16a34a;">In Stock</span>
+      {% endif %}
+    </div>
+
+    {% if product.description %}
+      <div class="product-description">
+        {{ product.description }}
+      </div>
+    {% endif %}
+
+    <form action="/cart/add" method="post" enctype="multipart/form-data" id="product-form">
+      {% if product.variants.size > 1 %}
+        <div class="size-selector">
+          <label for="variant-selector">Size</label>
+          <select id="variant-selector" name="id">
+            {% for variant in product.variants %}
+              <option value="{{ variant.id }}" {% if variant.available == false %}disabled{% endif %}>
+                {{ variant.title }} {% if variant.available == false %}(Unavailable){% endif %}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+      {% else %}
+        <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+      {% endif %}
+
+      <div class="product-actions">
+        <button 
+          type="submit" 
+          class="add-to-cart"
+          {% if product.available == false %}disabled{% endif %}
+        >
+          {% if product.available %}
+            Add to Cart
+          {% else %}
+            Out of Stock
+          {% endif %}
+        </button>
+        <button 
+          type="button"
+          class="wishlist-toggle"
+          data-product-id="{{ product.id }}"
+          data-product-title="{{ product.title }}"
+          data-product-price="{{ product.price | money }}"
+          data-product-image="{{ product.featured_image | image_url }}"
+        >
+          ♡ Add to Wishlist
+        </button>
+      </div>
+    </form>
+
+    {% if product.metafields.custom.shipping_info %}
+      <div style="margin-top: 2rem; padding: 1rem; background: #f9f9f9; border-radius: 4px;">
+        <p><strong>Shipping:</strong> {{ product.metafields.custom.shipping_info }}</p>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<script>
+  function updateMainImage(imageUrl) {
+    document.getElementById('main-product-image').src = imageUrl;
+    document.querySelectorAll('.gallery-thumb').forEach(thumb => thumb.classList.remove('active'));
+    event.target.closest('.gallery-thumb').classList.add('active');
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Product Template"
+}
+{% endschema %}
