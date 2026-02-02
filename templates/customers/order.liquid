@@ -1,0 +1,111 @@
+{% comment %}
+  Customer Order Detail Page - La Hime
+  Shows individual order details
+{% endcomment %}
+
+<div class="pt-32 pb-24 min-h-screen bg-white">
+  <div class="max-w-4xl mx-auto px-4">
+    
+    <!-- Header -->
+    <div class="mb-8">
+      <a href="/account" class="inline-flex items-center text-gray-600 hover:text-black mb-4">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mr-2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to Account
+      </a>
+      <h1 class="font-serif text-4xl text-gray-900">Order {{ order.name }}</h1>
+      <p class="text-gray-500 mt-2">Placed on {{ order.created_at | date: "%B %d, %Y" }}</p>
+    </div>
+
+    <!-- Order Status -->
+    <div class="bg-pink-50 border border-pink-100 rounded-lg p-6 mb-8">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm text-gray-600 mb-1">Order Status</p>
+          <p class="text-xl font-bold text-gray-900">{{ order.financial_status_label }}</p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-600 mb-1">Fulfillment Status</p>
+          <p class="text-xl font-bold text-gray-900">{{ order.fulfillment_status_label }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Order Items -->
+    <div class="bg-white border border-gray-200 rounded-lg overflow-hidden mb-8">
+      <div class="border-b border-gray-200 px-6 py-4 bg-gray-50">
+        <h2 class="font-bold text-gray-900">Order Items</h2>
+      </div>
+      <div class="divide-y divide-gray-200">
+        {% for line_item in order.line_items %}
+          <div class="p-6 flex gap-6">
+            {% if line_item.image %}
+              <img src="{{ line_item.image | img_url: '120x' }}" alt="{{ line_item.title }}" class="w-24 h-24 object-cover rounded-lg">
+            {% else %}
+              <div class="w-24 h-24 bg-gray-100 rounded-lg"></div>
+            {% endif %}
+            <div class="flex-1">
+              <h3 class="font-bold text-gray-900 mb-1">{{ line_item.product.title }}</h3>
+              <p class="text-sm text-gray-600 mb-2">{{ line_item.variant.title }}</p>
+              <p class="text-sm text-gray-500">Quantity: {{ line_item.quantity }}</p>
+            </div>
+            <div class="text-right">
+              <p class="font-bold text-gray-900">{{ line_item.final_line_price | money }}</p>
+              {% if line_item.original_line_price != line_item.final_line_price %}
+                <p class="text-sm text-gray-500 line-through">{{ line_item.original_line_price | money }}</p>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Order Summary -->
+    <div class="grid md:grid-cols-2 gap-8">
+      <!-- Shipping Address -->
+      <div class="bg-white border border-gray-200 rounded-lg p-6">
+        <h3 class="font-bold text-gray-900 mb-4">Shipping Address</h3>
+        <address class="not-italic text-gray-600 leading-relaxed">
+          {{ order.shipping_address.name }}<br>
+          {{ order.shipping_address.address1 }}<br>
+          {% if order.shipping_address.address2 != blank %}
+            {{ order.shipping_address.address2 }}<br>
+          {% endif %}
+          {{ order.shipping_address.city }}, {{ order.shipping_address.province }} {{ order.shipping_address.zip }}<br>
+          {{ order.shipping_address.country }}
+        </address>
+      </div>
+
+      <!-- Order Total -->
+      <div class="bg-white border border-gray-200 rounded-lg p-6">
+        <h3 class="font-bold text-gray-900 mb-4">Order Summary</h3>
+        <div class="space-y-2 text-sm">
+          <div class="flex justify-between">
+            <span class="text-gray-600">Subtotal</span>
+            <span class="text-gray-900">{{ order.line_items_subtotal_price | money }}</span>
+          </div>
+          {% for discount in order.discounts %}
+            <div class="flex justify-between">
+              <span class="text-gray-600">Discount ({{ discount.code }})</span>
+              <span class="text-green-600">-{{ discount.savings | money }}</span>
+            </div>
+          {% endfor %}
+          <div class="flex justify-between">
+            <span class="text-gray-600">Shipping</span>
+            <span class="text-gray-900">{{ order.shipping_price | money }}</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-600">Tax</span>
+            <span class="text-gray-900">{{ order.tax_price | money }}</span>
+          </div>
+          <div class="flex justify-between pt-2 border-t border-gray-200">
+            <span class="font-bold text-gray-900">Total</span>
+            <span class="font-bold text-gray-900">{{ order.total_price | money }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

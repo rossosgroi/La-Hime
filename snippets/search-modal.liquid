@@ -1,30 +1,130 @@
 {% comment %}
   Search Modal Snippet - La Hime
-  Predictive search functionality
+  Predictive search functionality with better UX
 {% endcomment %}
 
-<div id="search-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center p-4">
-  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[80vh] overflow-hidden">
+<div id="search-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden items-center justify-start pt-20 p-4">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-3xl mx-auto overflow-hidden border border-gray-100">
+    <!-- Search Input Header -->
     <div class="p-6 border-b border-gray-100">
-      <form action="/search" method="get" class="relative">
-        <input
-          type="text"
-          name="q"
-          id="search-modal-input"
-          placeholder="Search for products..."
-          autocomplete="off"
-          class="w-full px-6 py-4 pr-12 rounded-xl bg-gray-50 border-transparent focus:bg-white focus:ring-2 focus:ring-pink-200 transition-all outline-none text-gray-900 placeholder-gray-400"
-        />
-        <button type="button" onclick="closeSearchModal()" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-black">
+      <div class="flex items-center gap-4">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-gray-400">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <form action="/search" method="get" class="flex-1">
+          <input
+            type="text"
+            name="q"
+            id="search-modal-input"
+            placeholder="Search products, collections..."
+            autocomplete="off"
+            class="w-full py-2 bg-transparent border-none focus:outline-none text-gray-900 placeholder-gray-400 text-lg"
+          />
+        </form>
+        <button type="button" onclick="closeSearchModal()" class="text-gray-400 hover:text-black transition-colors p-2">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <line x1="18" y1="6" x2="6" y2="18"></line>
             <line x1="6" y1="6" x2="18" y2="18"></line>
           </svg>
         </button>
-      </form>
+      </div>
     </div>
-    <div id="search-modal-results" class="p-6 overflow-y-auto max-h-[60vh]">
-      {%- comment -%} Populated by predictive search {%- endcomment -%}
+
+    <!-- Search Results -->
+    <div id="search-modal-results" class="overflow-y-auto" style="max-height: 60vh;">
+      <div class="p-8 text-center text-gray-500">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="mx-auto mb-4 text-gray-300">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <p class="text-sm">Start typing to search...</p>
+      </div>
+    </div>
+
+    <!-- Popular Searches Footer -->
+    <div class="p-6 border-t border-gray-100 bg-gray-50">
+      <p class="text-xs uppercase tracking-wider text-gray-500 mb-3">Popular</p>
+      <div class="flex flex-wrap gap-2">
+        <a href="/search?q=miniskirts" class="px-3 py-1 bg-white rounded-full text-sm text-gray-700 hover:bg-black hover:text-white transition-colors border border-gray-200">Miniskirts</a>
+        <a href="/search?q=tops" class="px-3 py-1 bg-white rounded-full text-sm text-gray-700 hover:bg-black hover:text-white transition-colors border border-gray-200">Tops</a>
+        <a href="/search?q=dresses" class="px-3 py-1 bg-white rounded-full text-sm text-gray-700 hover:bg-black hover:text-white transition-colors border border-gray-200">Dresses</a>
+        <a href="/search?q=new" class="px-3 py-1 bg-white rounded-full text-sm text-gray-700 hover:bg-black hover:text-white transition-colors border border-gray-200">New Arrivals</a>
+      </div>
     </div>
   </div>
 </div>
+
+<script>
+  // Enhanced search with predictive results
+  const searchInput = document.getElementById('search-modal-input');
+  const searchResults = document.getElementById('search-modal-results');
+  
+  if (searchInput) {
+    searchInput.addEventListener('input', function(e) {
+      const query = e.target.value.trim();
+      
+      if (query.length < 2) {
+        searchResults.innerHTML = `
+          <div class="p-8 text-center text-gray-500">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="mx-auto mb-4 text-gray-300">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <p class="text-sm">Start typing to search...</p>
+          </div>
+        `;
+        return;
+      }
+      
+      // Show loading state
+      searchResults.innerHTML = `
+        <div class="p-8 text-center">
+          <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-pink-500"></div>
+          <p class="text-sm text-gray-500 mt-4">Searching...</p>
+        </div>
+      `;
+      
+      // Perform search
+      fetch(`/search/suggest.json?q=${encodeURIComponent(query)}&resources[type]=product&resources[limit]=6`)
+        .then(response => response.json())
+        .then(data => {
+          const products = data.resources.results.products || [];
+          
+          if (products.length === 0) {
+            searchResults.innerHTML = `
+              <div class="p-8 text-center text-gray-500">
+                <p class="mb-2">No results found for "${query}"</p>
+                <a href="/collections/all" class="text-pink-500 text-sm hover:underline">Browse all products</a>
+              </div>
+            `;
+            return;
+          }
+          
+          let html = '<div class="p-4">';
+          products.forEach(product => {
+            const price = (product.price / 100).toFixed(2);
+            const image = product.image || '';
+            html += `
+              <a href="${product.url}" class="flex items-center gap-4 p-3 hover:bg-gray-50 rounded-lg transition-colors">
+                <img src="${image}" alt="${product.title}" class="w-16 h-16 object-cover rounded-lg" />
+                <div class="flex-1">
+                  <h3 class="font-medium text-gray-900">${product.title}</h3>
+                  <p class="text-sm text-gray-500">$${price}</p>
+                </div>
+              </a>
+            `;
+          });
+          html += '</div>';
+          searchResults.innerHTML = html;
+        })
+        .catch(error => {
+          searchResults.innerHTML = `
+            <div class="p-8 text-center text-gray-500">
+              <p class="text-sm">Error performing search. Please try again.</p>
+            </div>
+          `;
+        });
+    });
+  }
+</script>
