@@ -1,0 +1,17 @@
+{% comment %}
+  404 Template Section
+{% endcomment %}
+
+<section class="page-template">
+  <div class="container" style="max-width: 700px; text-align: center;">
+    <h1>Page not found</h1>
+    <p style="margin: 1.5rem 0;">The page you’re looking for doesn’t exist or has been moved.</p>
+    <a href="{{ routes.root_url }}" class="btn btn-primary">Back to Home</a>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "404 Template"
+}
+{% endschema %}

@@ -1,33 +1,95 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
-    "color_primary": "#ec4899",
-    "color_secondary": "#000000",
-    "color_accent": "#f472b6",
-    "font_heading": "Playfair Display",
-    "font_body": "Inter",
-    "logo_width": 120,
-    "cart_type": "drawer",
-    "cart_notes_enable": true,
-    "products_per_row_desktop": 4,
-    "products_per_row_mobile": 1,
-    "product_hover_image": true,
+    "settings": {
+      "color_primary": "#000000",
+      "color_secondary": "#ec4899",
+      "color_accent": "#a855f7",
+      "color_text": "#1a1a1a",
+      "color_text_light": "#666666",
+      "color_border": "#e5e5e5",
+      "color_background": "#ffffff",
+      "font_body": "poppins_n4",
+      "font_heading": "playfair_display_n7",
+      "main_menu": "main-menu",
+      "footer_menu": "footer",
+      "instagram_handle": "@lahimestyle",
+      "twitter_handle": "@lahimestyle",
+      "facebook_page": "lahimestyle"
+    },
     "sections": {
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "settings": {
+          "announcement_text": "Free shipping on orders over $150",
+          "bg_color": "#ec4899",
+          "text_color": "#ffffff"
+        }
+      },
       "header": {
         "type": "header",
-        "settings": {}
+        "settings": {
+          "logo": "",
+          "header_bg": "#ffffff"
+        }
+      },
+      "main": {
+        "type": "hero-section",
+        "settings": {
+          "badge_text": "The 2026 Collection",
+          "hero_title": "Sweet and Spicy",
+          "description": "Bridging the gap between fantasy and reality. Our collection fuses the soft nostalgia of early 2000s Tokyo with a sharp, modern edge.",
+          "button_text": "Shop New Arrivals",
+          "button_link": "/collections/new-arrivals",
+          "secondary_button_text": "Our Story",
+          "secondary_button_link": "/pages/about"
+        }
+      },
+      "newsletter": {
+        "type": "newsletter-section",
+        "settings": {
+          "title": "Join the Club",
+          "description": "Get 10% off your first order plus early access to new drops.",
+          "button_text": "Subscribe",
+          "disclaimer": "We respect your privacy. Unsubscribe at any time."
+        }
       },
       "footer": {
         "type": "footer",
         "settings": {
-          "footer_title": "La Hime",
-          "footer_description": "Sweet & Spicy. A fusion of Tokyo aesthetic and Shanghai streetwear for the modern fashion enthusiast."
+          "footer_description": "Sweet & Spicy. A fusion of Tokyo aesthetic and Shanghai streetwear for the modern fashion enthusiast.",
+          "footer_text": "Made with ♥",
+          "instagram_url": "https://instagram.com",
+          "twitter_url": "https://twitter.com"
         }
+      },
+      "cart-drawer": {
+        "type": "cart-drawer",
+        "settings": {}
+      },
+      "wishlist-drawer": {
+        "type": "wishlist-drawer",
+        "settings": {}
+      },
+      "search-drawer": {
+        "type": "search-drawer",
+        "settings": {}
+      },
+      "mobile-nav": {
+        "type": "mobile-nav",
+        "settings": {}
       }
     },
     "content_for_index": [
-      "hero-home",
-      "featured-collection",
-      "banner-aesthetic",
+      "main",
       "newsletter"
     ]
   }

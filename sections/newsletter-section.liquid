@@ -1,0 +1,62 @@
+{% comment %}
+  Newsletter Section - La Hime Style
+{% endcomment %}
+
+<section class="la-newsletter">
+  <div class="la-container">
+    <div class="la-newsletter-card">
+      <div class="la-blob la-blob-1"></div>
+      <div class="la-blob la-blob-2"></div>
+
+      <div class="la-newsletter-header">
+        <span class="la-star">★</span>
+        <h2 class="font-brand">{{ section.settings.title }}</h2>
+        <span class="la-star">★</span>
+      </div>
+      <p>{{ section.settings.description }}</p>
+
+      <form class="la-newsletter-form" method="post" action="/admin/email_marketing_activities">
+        <input
+          type="email"
+          name="email"
+          placeholder="your@email.com"
+          required
+          aria-label="Email address"
+        >
+        <button type="submit">{{ section.settings.button_text }}</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Join the Club"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Get 10% off your first order plus early access to new drops."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Subscribe"
+    },
+    {
+      "type": "text",
+      "id": "disclaimer",
+      "label": "Disclaimer Text",
+      "default": "We respect your privacy. Unsubscribe at any time."
+    }
+  ]
+}
+{% endschema %}
