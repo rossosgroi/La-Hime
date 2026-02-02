@@ -11,12 +11,9 @@
   text-align: center;
 }
 
-/* Hide duplicate Products text that appears on left */
-h1 + h1,
-h1.font-brand,
-.font-brand + h1,
-p:first-of-type:not(.text-gray-500),
-h1:nth-of-type(n+2) {
+/* Hide duplicate h1 elements only within collection header */
+.bg-pink-50 h1 + h1,
+.bg-pink-50 h1:nth-of-type(n+2) {
   display: none !important;
 }
 
