@@ -1,6 +1,10 @@
 
 {
   "sections": {
+    "test": {
+      "type": "test-section",
+      "settings": {}
+    },
     "announcement-bar": {
       "type": "announcement-bar",
       "settings": {}
@@ -23,6 +27,7 @@
     }
   },
   "order": [
+    "test",
     "announcement-bar",
     "hero",
     "filters",
