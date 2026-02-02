@@ -120,12 +120,14 @@
     
     <nav class="space-y-2">
       {% for link in linklists.main-menu.links %}
-        <a href="{{ link.url }}" class="block px-4 py-3 rounded-xl text-gray-600 hover:bg-gray-50 hover:text-pink-600 transition-colors font-medium">
-          {{ link.title }}
-        </a>
+        {% unless link.title == 'Catalogo' %}
+          <a href="{{ link.url }}" class="block px-4 py-3 rounded-xl text-gray-600 hover:bg-gray-50 hover:text-pink-600 transition-colors font-medium">
+            {{ link.title }}
+          </a>
+        {% endunless %}
       {% endfor %}
       
-      <a href="/collections/all" class="block px-4 py-3 rounded-xl text-gray-600 hover:bg-gray-50 hover:text-pink-600 transition-colors font-medium">Shop All</a>
+      <a href="/collections/all" class="block px-4 py-3 rounded-xl text-gray-600 hover:bg-gray-50 hover:text-pink-600 transition-colors font-medium">Shop</a>
       <a href="/pages/about" class="block px-4 py-3 rounded-xl text-gray-600 hover:bg-gray-50 hover:text-pink-600 transition-colors font-medium">About</a>
       <a href="/pages/contact" class="block px-4 py-3 rounded-xl text-gray-600 hover:bg-gray-50 hover:text-pink-600 transition-colors font-medium">Contact</a>
     </nav>
