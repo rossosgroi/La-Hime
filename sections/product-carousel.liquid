@@ -1,0 +1,178 @@
+{% comment %}
+  Infinite Scrolling Product Carousel
+  Auto-scrolls products from right to left
+{% endcomment %}
+
+<section class="py-16 bg-gradient-to-r from-pink-50 to-purple-50 overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+    <div class="text-center">
+      <h2 class="font-serif-display text-4xl text-gray-900 mb-2">Trending Now</h2>
+      <p class="text-gray-600">Swipe through our latest picks</p>
+    </div>
+  </div>
+
+  <div class="carousel-wrapper relative">
+    <div class="carousel-track" id="carousel-track">
+      {%- assign featured_collection = collections[section.settings.collection] | default: collections.all -%}
+      {%- assign carousel_products = featured_collection.products -%}
+      
+      {%- if carousel_products.size == 0 -%}
+        {%- comment -%} Fallback to all products if collection is empty {%- endcomment -%}
+        {%- assign carousel_products = collections.all.products -%}
+      {%- endif -%}
+
+      {%- comment -%} First set of products {%- endcomment -%}
+      {%- for product in carousel_products limit: 8 -%}
+        <div class="carousel-item">
+          <a href="{{ product.url }}" class="block group">
+            <div class="relative aspect-[3/4] bg-white rounded-2xl overflow-hidden shadow-md group-hover:shadow-xl transition-all duration-300">
+              {%- if product.featured_image -%}
+                <img 
+                  src="{{ product.featured_image | image_url: width: 300 }}" 
+                  alt="{{ product.title }}"
+                  loading="lazy"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              {%- else -%}
+                <div class="w-full h-full bg-gradient-to-br from-pink-100 to-purple-100 flex items-center justify-center">
+                  <span class="font-serif-display text-3xl text-pink-500">La Hime</span>
+                </div>
+              {%- endif -%}
+              
+              {%- if product.compare_at_price > product.price -%}
+                <span class="absolute top-3 left-3 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                  Sale
+                </span>
+              {%- elsif product.tags contains 'new' -%}
+                <span class="absolute top-3 left-3 bg-black text-white text-xs font-bold px-3 py-1 rounded-full">
+                  New
+                </span>
+              {%- endif -%}
+            </div>
+            
+            <div class="mt-4 px-2">
+              <h3 class="font-bold text-gray-900 text-sm mb-1 truncate group-hover:text-pink-500 transition-colors">
+                {{ product.title }}
+              </h3>
+              <div class="flex items-center gap-2">
+                {%- if product.compare_at_price > product.price -%}
+                  <span class="text-gray-400 line-through text-sm">{{ product.compare_at_price | money }}</span>
+                  <span class="text-pink-600 font-bold">{{ product.price | money }}</span>
+                {%- else -%}
+                  <span class="text-gray-900 font-bold">{{ product.price | money }}</span>
+                {%- endif -%}
+              </div>
+            </div>
+          </a>
+        </div>
+      {%- endfor -%}
+
+      {%- comment -%} Duplicate set for seamless loop {%- endcomment -%}
+      {%- for product in carousel_products limit: 8 -%}
+        <div class="carousel-item">
+          <a href="{{ product.url }}" class="block group">
+            <div class="relative aspect-[3/4] bg-white rounded-2xl overflow-hidden shadow-md group-hover:shadow-xl transition-all duration-300">
+              {%- if product.featured_image -%}
+                <img 
+                  src="{{ product.featured_image | image_url: width: 300 }}" 
+                  alt="{{ product.title }}"
+                  loading="lazy"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              {%- else -%}
+                <div class="w-full h-full bg-gradient-to-br from-pink-100 to-purple-100 flex items-center justify-center">
+                  <span class="font-serif-display text-3xl text-pink-500">La Hime</span>
+                </div>
+              {%- endif -%}
+              
+              {%- if product.compare_at_price > product.price -%}
+                <span class="absolute top-3 left-3 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                  Sale
+                </span>
+              {%- elsif product.tags contains 'new' -%}
+                <span class="absolute top-3 left-3 bg-black text-white text-xs font-bold px-3 py-1 rounded-full">
+                  New
+                </span>
+              {%- endif -%}
+            </div>
+            
+            <div class="mt-4 px-2">
+              <h3 class="font-bold text-gray-900 text-sm mb-1 truncate group-hover:text-pink-500 transition-colors">
+                {{ product.title }}
+              </h3>
+              <div class="flex items-center gap-2">
+                {%- if product.compare_at_price > product.price -%}
+                  <span class="text-gray-400 line-through text-sm">{{ product.compare_at_price | money }}</span>
+                  <span class="text-pink-600 font-bold">{{ product.price | money }}</span>
+                {%- else -%}
+                  <span class="text-gray-900 font-bold">{{ product.price | money }}</span>
+                {%- endif -%}
+              </div>
+            </div>
+          </a>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    {%- comment -%} Gradient Overlays {%- endcomment -%}
+    <div class="pointer-events-none absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-pink-50 to-transparent z-10"></div>
+    <div class="pointer-events-none absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-purple-50 to-transparent z-10"></div>
+  </div>
+</section>
+
+<style>
+  .carousel-wrapper {
+    position: relative;
+  }
+
+  .carousel-track {
+    display: flex;
+    gap: 2rem;
+    animation: scroll 40s linear infinite;
+    will-change: transform;
+  }
+
+  .carousel-item {
+    flex: 0 0 250px;
+    width: 250px;
+  }
+
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .carousel-track:hover {
+    animation-play-state: paused;
+  }
+
+  @media (max-width: 640px) {
+    .carousel-item {
+      flex: 0 0 180px;
+      width: 180px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Product Carousel",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection",
+      "info": "Select collection to display in carousel"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Carousel"
+    }
+  ]
+}
+{% endschema %}

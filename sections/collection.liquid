@@ -88,124 +88,129 @@
       </div>
     </div>
 
-    {%- comment -%} Product Grid with Placeholders {%- endcomment -%}
+    {%- comment -%} Product Grid - Fully Functional Shopify Products {%- endcomment -%}
     <div class="min-h-[400px]">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12" id="product-grid">
-        {% assign products = collection.products %}
+        {%- assign products = collection.products -%}
         
-        {% if products.size == 0 %}
-          {%- comment -%} Placeholder Products with Categories {%- endcomment -%}
-          {% assign placeholder_categories = "dresses,tops,bottoms,dresses,accessories,tops,shoes,bottoms" | split: "," %}
-          {% for i in (1..8) %}
-            <div class="product-card group cursor-pointer transform transition-all duration-300 hover:-translate-y-2" data-category="{{ placeholder_categories[forloop.index0] }}" data-price="{{ i | times: 45 | plus: 50 }}">
-              <div class="relative aspect-[3/4] bg-gradient-to-br from-pink-50 to-purple-50 rounded-xl overflow-hidden mb-4 shadow-sm group-hover:shadow-lg flex items-center justify-center">
-                <div class="text-center px-4">
-                  <p class="font-serif-display text-4xl text-pink-500 font-bold">La Hime</p>
-                  <p class="text-sm text-gray-500 mt-2 capitalize">{{ placeholder_categories[forloop.index0] }}</p>
+        {%- if products.size == 0 -%}
+          {%- comment -%} Show message when no products {%- endcomment -%}
+          <div class="col-span-full text-center py-24">
+            <div class="w-24 h-24 bg-gray-100 rounded-full mx-auto mb-4 flex items-center justify-center">
+              <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+              </svg>
+            </div>
+            <h3 class="font-serif-display text-2xl text-gray-900 mb-2">No Products Yet</h3>
+            <p class="text-gray-500 mb-6">Add products in your Shopify admin to display them here</p>
+            <a href="/admin/products/new" target="_blank" class="inline-block px-8 py-3 bg-black text-white rounded-full font-bold hover:bg-pink-500 transition-colors">
+              Add Products in Shopify
+            </a>
+          </div>
+        {%- else -%}
+          {%- comment -%} Actual Shopify Products {%- endcomment -%}
+          {%- for product in products -%}
+            {%- comment -%} Determine product category from tags {%- endcomment -%}
+            {%- assign product_category = "all" -%}
+            {%- for tag in product.tags -%}
+              {%- assign tag_downcase = tag | downcase -%}
+              {%- if tag_downcase == "dresses" or tag_downcase == "tops" or tag_downcase == "bottoms" or tag_downcase == "accessories" or tag_downcase == "shoes" -%}
+                {%- assign product_category = tag_downcase -%}
+                {%- break -%}
+              {%- endif -%}
+            {%- endfor -%}
+            
+            <div class="product-card transform transition-all duration-300 hover:-translate-y-2" data-category="{{ product_category }}" data-price="{{ product.price }}">
+              <a href="{{ product.url }}" class="block group">
+                <div class="relative aspect-[3/4] bg-gray-100 rounded-xl overflow-hidden mb-4 shadow-sm group-hover:shadow-lg">
+                  {%- if product.featured_image -%}
+                    <img 
+                      src="{{ product.featured_image | image_url: width: 400 }}" 
+                      alt="{{ product.title | escape }}"
+                      loading="lazy"
+                      class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                  {%- else -%}
+                    <div class="w-full h-full bg-gradient-to-br from-pink-50 to-purple-50 flex items-center justify-center">
+                      <span class="font-serif-display text-4xl text-pink-500">La Hime</span>
+                    </div>
+                  {%- endif -%}
+
+                  {%- comment -%} Second image on hover {%- endcomment -%}
+                  {%- if product.images.size > 1 -%}
+                    <img 
+                      src="{{ product.images[1] | image_url: width: 400 }}" 
+                      alt="{{ product.title | escape }} - alternate view"
+                      class="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      loading="lazy"
+                    />
+                  {%- endif -%}
+
+                  {%- comment -%} Badges {%- endcomment -%}
+                  {%- if product.compare_at_price > product.price -%}
+                    <span class="absolute top-3 left-3 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
+                      Sale
+                    </span>
+                  {%- elsif product.tags contains 'new' or product.tags contains 'New' -%}
+                    <span class="absolute top-3 left-3 bg-black text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
+                      New
+                    </span>
+                  {%- endif -%}
+
+                  {%- comment -%} Wishlist Button {%- endcomment -%}
+                  <button 
+                    class="wishlist-toggle absolute bottom-4 right-4 p-2 bg-white rounded-full shadow-lg hover:bg-pink-500 hover:text-white transition-all duration-200 transform opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0"
+                    data-product-id="{{ product.id }}"
+                    data-product-title="{{ product.title | escape }}"
+                    data-product-image="{{ product.featured_image | image_url: width: 400 }}"
+                    data-product-price="{{ product.price | money }}"
+                    data-product-url="{{ product.url }}"
+                    aria-label="Add {{ product.title | escape }} to wishlist"
+                    onclick="event.preventDefault(); event.stopPropagation(); toggleWishlist('{{ product.id }}', '{{ product.title | escape }}', '{{ product.featured_image | image_url: width: 400 }}', '{{ product.price | money }}', '{{ product.url }}');"
+                  >
+                    ♡
+                  </button>
                 </div>
 
-                <span class="absolute top-3 left-3 bg-black text-white text-xs font-bold px-2 py-1 rounded-full uppercase">
-                  New
-                </span>
-
-                <button 
-                  class="wishlist-toggle absolute bottom-4 right-4 p-2 bg-white rounded-full shadow-lg hover:bg-pink-500 hover:text-white transition-all duration-200 transform opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0"
-                  aria-label="Add to wishlist"
-                  onclick="event.preventDefault(); event.stopPropagation();"
-                >
-                  ♡
-                </button>
-              </div>
-
-              <h3 class="font-bold text-gray-900 mb-1 group-hover:text-pink-500 transition-colors">
-                La Hime {{ placeholder_categories[forloop.index0] | capitalize }}
-              </h3>
-              <p class="text-gray-600 text-sm mb-3">
-                ${{ i | times: 45 | plus: 50 }}.00
-              </p>
-
-              <button 
-                class="w-full py-2 bg-black text-white rounded-full text-sm font-bold hover:bg-pink-500 transition-colors duration-200"
-              >
-                Add to Cart
-              </button>
-            </div>
-          {% endfor %}
-        {% else %}
-          {%- comment -%} Actual Products {%- endcomment -%}
-          {% for product in products %}
-            {% assign product_category = "all" %}
-            {% for tag in product.tags %}
-              {% if tag == "dresses" or tag == "tops" or tag == "bottoms" or tag == "accessories" or tag == "shoes" %}
-                {% assign product_category = tag %}
-              {% endif %}
-            {% endfor %}
-            
-            <div class="product-card group cursor-pointer transform transition-all duration-300 hover:-translate-y-2" data-category="{{ product_category }}" data-price="{{ product.price }}">
-              <div class="relative aspect-[3/4] bg-gray-100 rounded-xl overflow-hidden mb-4 shadow-sm group-hover:shadow-lg">
-                {% if product.featured_image %}
-                  <img 
-                    src="{{ product.featured_image | image_url: width: 350, height: 480 }}" 
-                    alt="{{ product.title }}"
-                    loading="lazy"
-                    class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                {% endif %}
-
-                {% if product.images.size > 1 %}
-                  <img 
-                    src="{{ product.images[1] | image_url: width: 350, height: 480 }}" 
-                    alt="{{ product.title }} alternate view"
-                    class="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  />
-                {% endif %}
-
-                {% if product.tags contains 'new' %}
-                  <span class="absolute top-3 left-3 bg-black text-white text-xs font-bold px-2 py-1 rounded-full uppercase">
-                    New
-                  </span>
-                {% endif %}
-
-                <button 
-                  class="wishlist-toggle absolute bottom-4 right-4 p-2 bg-white rounded-full shadow-lg hover:bg-pink-500 hover:text-white transition-all duration-200 transform opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0"
-                  data-product-id="{{ product.id }}"
-                  data-product-title="{{ product.title }}"
-                  data-product-image="{{ product.featured_image | image_url }}"
-                  data-product-price="{{ product.price | money }}"
-                  data-product-url="{{ product.url }}"
-                  aria-label="Add to wishlist"
-                  onclick="event.preventDefault(); event.stopPropagation();"
-                >
-                  ♡
-                </button>
-              </div>
-
-              <a href="{{ product.url }}" class="block">
+                {%- comment -%} Product Info {%- endcomment -%}
                 <h3 class="font-bold text-gray-900 mb-1 group-hover:text-pink-500 transition-colors line-clamp-2">
                   {{ product.title }}
                 </h3>
-                <p class="text-gray-600 text-sm mb-3">
-                  {{ product.price | money }}
-                </p>
+                
+                <div class="flex items-center gap-2 mb-3">
+                  {%- if product.compare_at_price > product.price -%}
+                    <span class="text-gray-400 line-through text-sm">{{ product.compare_at_price | money }}</span>
+                    <span class="text-pink-600 font-bold">{{ product.price | money }}</span>
+                  {%- else -%}
+                    <span class="text-gray-900 font-bold">{{ product.price | money }}</span>
+                  {%- endif -%}
+                </div>
               </a>
 
-              <form action="/cart/add" method="post" class="add-to-cart-form">
-                <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+              {%- comment -%} Quick Add to Cart {%- endcomment -%}
+              <form action="/cart/add" method="post" class="add-to-cart-form" onsubmit="return handleAddToCart(event, this);">
+                <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                <input type="hidden" name="quantity" value="1">
                 <button 
                   type="submit"
-                  class="w-full py-2 bg-black text-white rounded-full text-sm font-bold hover:bg-pink-500 transition-colors duration-200"
+                  class="w-full py-2 bg-black text-white rounded-full text-sm font-bold hover:bg-pink-500 transition-colors duration-200 disabled:bg-gray-300 disabled:cursor-not-allowed"
+                  {%- unless product.available -%}disabled{%- endunless -%}
                 >
-                  Add to Cart
+                  {%- if product.available -%}
+                    Add to Cart
+                  {%- else -%}
+                    Sold Out
+                  {%- endif -%}
                 </button>
               </form>
             </div>
-          {% endfor %}
-        {% endif %}
+          {%- endfor -%}
+        {%- endif -%}
       </div>
 
-      {%- comment -%} Empty State {%- endcomment -%}
-      <div id="empty-state" class="hidden text-center py-24 text-gray-400 flex flex-col items-center">
-        <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+      {%- comment -%} Empty Filter State {%- endcomment -%}
+      <div id="empty-state" class="hidden text-center py-24 text-gray-400 flex-col items-center">
+        <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4 mx-auto">
           <svg class="w-8 h-8 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
           </svg>
@@ -347,6 +352,64 @@
 
     // Initial count
     visibleCount.textContent = productCards.length;
+
+    // Add to Cart Handler with AJAX
+    window.handleAddToCart = function(event, form) {
+      event.preventDefault();
+      
+      const formData = new FormData(form);
+      const button = form.querySelector('button[type="submit"]');
+      const originalText = button.textContent;
+      
+      button.disabled = true;
+      button.textContent = 'Adding...';
+      
+      fetch('/cart/add.js', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Update cart count
+        fetch('/cart.js')
+          .then(res => res.json())
+          .then(cart => {
+            const cartBubble = document.getElementById('cart-count-bubble');
+            if (cartBubble) {
+              cartBubble.textContent = cart.item_count;
+              cartBubble.classList.remove('hidden');
+            }
+          });
+        
+        // Show success feedback
+        button.textContent = '✓ Added!';
+        button.classList.add('bg-green-500');
+        
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.classList.remove('bg-green-500');
+          button.disabled = false;
+        }, 2000);
+        
+        // Open cart drawer if function exists
+        if (typeof openCartDrawer === 'function') {
+          setTimeout(() => openCartDrawer(event), 500);
+        }
+      })
+      .catch(error => {
+        console.error('Error adding to cart:', error);
+        button.textContent = 'Error - Try Again';
+        button.classList.add('bg-red-500');
+        
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.classList.remove('bg-red-500');
+          button.disabled = false;
+        }, 2000);
+      });
+      
+      return false;
+    };
   });
 </script>
 
