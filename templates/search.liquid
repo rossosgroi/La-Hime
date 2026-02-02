@@ -1,109 +1,211 @@
 {% comment %}
-  Search Results Page - La Hime
-  Displays search results with filters
+  Search Results Template - Display filtered/searched products
+  Mirrors La Hime Shop.tsx search filtering with full product cards
 {% endcomment %}
 
+{% paginate search.results by 12 %}
+
 <div class="pt-32 pb-24 min-h-screen bg-white">
-  <div class="max-w-7xl mx-auto px-4">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     
-    <!-- Search Header -->
-    <div class="mb-12 text-center">
-      <h1 class="font-serif text-4xl lg:text-5xl text-gray-900 mb-4">Search Results</h1>
-      {% if search.performed %}
-        <p class="text-gray-600 text-lg">
-          {% if search.results_count > 0 %}
-            Found <strong>{{ search.results_count }}</strong> {{ search.results_count | pluralize: 'result', 'results' }} for "<strong>{{ search.terms }}</strong>"
-          {% else %}
-            No results found for "<strong>{{ search.terms }}</strong>"
-          {% endif %}
-        </p>
-      {% else %}
-        <p class="text-gray-600 text-lg">Enter a search term to find products</p>
-      {% endif %}
+    {%- comment -%} Breadcrumb & Title {%- endcomment -%}
+    <div class="mb-12">
+      <div class="text-sm text-gray-500 mb-6 flex items-center gap-2">
+        <a href="/" class="hover:text-black transition-colors">Home</a>
+        <span>/</span>
+        <span class="text-black font-medium">Search Results</span>
+      </div>
+
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <h1 class="font-serif-display text-5xl text-gray-900 mb-2">
+            Search Results
+          </h1>
+          <p class="text-gray-600 text-lg">
+            {% if search.performed %}
+              {% if search.results_count > 0 %}
+                Found <strong>{{ search.results_count }} result{{ search.results_count != 1 ? 's' : '' }}</strong> for "{{ search.terms | escape }}"
+              {% else %}
+                No results found for "{{ search.terms | escape }}"
+              {% endif %}
+            {% else %}
+              Enter a search term to find products
+            {% endif %}
+          </p>
+        </div>
+      </div>
     </div>
 
     {% if search.performed %}
       {% if search.results_count > 0 %}
         
-        <!-- Product Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mb-16">
-          {% for item in search.results %}
-            {% if item.object_type == 'product' %}
-              {% render 'product-card', product: item %}
+        {%- comment -%} Sort Bar {%- endcomment -%}
+        <div class="flex items-center justify-end mb-8 pb-6 border-b border-gray-200">
+          <div class="flex items-center gap-4">
+            <label for="sort-select" class="text-sm font-bold text-gray-900">Sort by:</label>
+            <select id="sort-select" class="px-4 py-2 border border-gray-200 rounded-full text-sm font-bold hover:border-gray-900 transition-colors">
+              <option value="">Relevance</option>
+              <option value="best-selling">Best Selling</option>
+              <option value="title-ascending">A - Z</option>
+              <option value="title-descending">Z - A</option>
+              <option value="price-ascending">Price: Low to High</option>
+              <option value="price-descending">Price: High to Low</option>
+              <option value="created-descending">Newest</option>
+            </select>
+          </div>
+        </div>
+
+        {%- comment -%} Product Grid {%- endcomment -%}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+          {% for product in search.results %}
+            {% if product.object_type == 'product' %}
+              <div class="group cursor-pointer transform transition-all duration-300 hover:-translate-y-2">
+                <div class="relative aspect-[3/4] bg-gray-100 rounded-xl overflow-hidden mb-4 shadow-sm group-hover:shadow-lg">
+                  {% if product.featured_image %}
+                    <img 
+                      src="{{ product.featured_image | image_url: width: 350, height: 480 }}" 
+                      alt="{{ product.title }}"
+                      loading="lazy"
+                      class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                  {% endif %}
+
+                  {% if product.images.size > 1 %}
+                    <img 
+                      src="{{ product.images[1] | image_url: width: 350, height: 480 }}" 
+                      alt="{{ product.title }} alternate view"
+                      class="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    />
+                  {% endif %}
+
+                  {% if product.tags contains 'new' %}
+                    <span class="absolute top-3 left-3 bg-black text-white text-xs font-bold px-2 py-1 rounded-full uppercase">
+                      New
+                    </span>
+                  {% endif %}
+
+                  <button 
+                    class="absolute bottom-4 right-4 p-2 bg-white rounded-full shadow-lg hover:bg-pink-500 hover:text-white transition-all duration-200 transform opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 wishlist-toggle"
+                    data-product-id="{{ product.id }}"
+                    data-product-title="{{ product.title }}"
+                    data-product-image="{{ product.featured_image | image_url }}"
+                    aria-label="Add to wishlist"
+                  >
+                    ♡
+                  </button>
+                </div>
+
+                <a href="{{ product.url }}" class="block">
+                  <h3 class="font-bold text-gray-900 mb-1 group-hover:text-pink-500 transition-colors line-clamp-2">
+                    {{ product.title }}
+                  </h3>
+                  <p class="text-gray-600 text-sm mb-3">
+                    {{ product.price | money }}
+                  </p>
+                </a>
+
+                <form action="/cart/add" method="post" class="add-to-cart-form">
+                  <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                  <button 
+                    type="submit"
+                    class="w-full py-2 bg-black text-white rounded-full text-sm font-bold hover:bg-pink-500 transition-colors duration-200"
+                  >
+                    Add to Cart
+                  </button>
+                </form>
+              </div>
             {% endif %}
           {% endfor %}
         </div>
 
-        <!-- Pagination -->
+        {%- comment -%} Pagination {%- endcomment -%}
         {% if paginate.pages > 1 %}
-          <div class="mt-16">
-            {% render 'pagination', paginate: paginate %}
+          <div class="flex justify-center items-center gap-2 pt-8 border-t border-gray-200">
+            {% if paginate.previous %}
+              <a href="{{ paginate.previous.url }}" class="px-4 py-2 border border-gray-200 rounded-full text-sm font-bold hover:border-black hover:bg-black hover:text-white transition-colors">
+                ← Previous
+              </a>
+            {% endif %}
+
+            {% for page in (1..paginate.pages) %}
+              {% if page == paginate.current_page %}
+                <span class="px-3 py-2 bg-black text-white rounded-full text-sm font-bold">
+                  {{ page }}
+                </span>
+              {% elsif page <= paginate.current_page | plus: 2 and page >= paginate.current_page | minus: 2 %}
+                <a href="{{ page | url_param_escape }}" class="px-3 py-2 border border-gray-200 rounded-full text-sm font-bold hover:border-black transition-colors">
+                  {{ page }}
+                </a>
+              {% endif %}
+            {% endfor %}
+
+            {% if paginate.next %}
+              <a href="{{ paginate.next.url }}" class="px-4 py-2 border border-gray-200 rounded-full text-sm font-bold hover:border-black hover:bg-black hover:text-white transition-colors">
+                Next →
+              </a>
+            {% endif %}
           </div>
         {% endif %}
 
       {% else %}
-        
-        <!-- No Results State -->
+        {%- comment -%} No Results {%- endcomment -%}
         <div class="text-center py-20">
-          <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="mx-auto mb-6 text-gray-300">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          </svg>
-          
-          <h3 class="font-serif text-2xl text-gray-900 mb-4">No products found</h3>
+          <div class="mb-8">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" class="mx-auto text-gray-300">
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.35-4.35"></path>
+            </svg>
+          </div>
+          <h2 class="font-serif-display text-3xl text-gray-900 mb-2">
+            No products found
+          </h2>
           <p class="text-gray-600 mb-8 max-w-md mx-auto">
-            We couldn't find any products matching "{{ search.terms }}". 
-            Try searching with different keywords or browse our full collection.
+            We couldn't find any products matching "{{ search.terms | escape }}". Try searching with different keywords or browse our full collection.
           </p>
-          
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="/collections/all" class="px-8 py-3 bg-black text-white rounded-full font-medium hover:bg-gray-800 transition-colors">
-              Shop All Products
+            <a href="/collections/all" class="inline-block px-8 py-3 bg-black text-white rounded-full font-bold hover:bg-pink-500 transition-colors">
+              Shop All
             </a>
-            <a href="/" class="px-8 py-3 border-2 border-black text-black rounded-full font-medium hover:bg-black hover:text-white transition-colors">
-              Back to Home
+            <a href="/" class="inline-block px-8 py-3 border-2 border-black text-black rounded-full font-bold hover:bg-black hover:text-white transition-colors">
+              Back Home
             </a>
           </div>
         </div>
-
       {% endif %}
-    {% else %}
-      
-      <!-- Search Form (if no search performed) -->
-      <div class="max-w-2xl mx-auto">
-        <form action="/search" method="get" class="relative">
-          <input 
-            type="search" 
-            name="q" 
-            placeholder="Search for products..." 
-            class="w-full px-6 py-4 border-2 border-gray-200 rounded-full focus:border-black focus:outline-none text-lg"
-            value="{{ search.terms }}"
-          >
-          <button 
-            type="submit" 
-            class="absolute right-2 top-1/2 -translate-y-1/2 px-6 py-2 bg-black text-white rounded-full font-medium hover:bg-gray-800 transition-colors"
-          >
-            Search
-          </button>
-        </form>
-        
-        <!-- Popular Searches -->
-        <div class="mt-12 text-center">
-          <p class="text-gray-500 text-sm uppercase tracking-wider mb-4">Popular Searches</p>
-          <div class="flex flex-wrap justify-center gap-3">
-            <a href="/search?q=miniskirts" class="px-4 py-2 border border-gray-200 rounded-full text-sm hover:border-black hover:bg-black hover:text-white transition-colors">Miniskirts</a>
-            <a href="/search?q=tops" class="px-4 py-2 border border-gray-200 rounded-full text-sm hover:border-black hover:bg-black hover:text-white transition-colors">Tops</a>
-            <a href="/search?q=dresses" class="px-4 py-2 border border-gray-200 rounded-full text-sm hover:border-black hover:bg-black hover:text-white transition-colors">Dresses</a>
-            <a href="/search?q=accessories" class="px-4 py-2 border border-gray-200 rounded-full text-sm hover:border-black hover:bg-black hover:text-white transition-colors">Accessories</a>
-          </div>
-        </div>
-      </div>
 
+    {% else %}
+      {%- comment -%} Empty Search State {%- endcomment -%}
+      <div class="text-center py-20">
+        <div class="mb-8">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" class="mx-auto text-gray-300">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+        </div>
+        <h2 class="font-serif-display text-3xl text-gray-900 mb-2">
+          Start searching
+        </h2>
+        <p class="text-gray-600 mb-8 max-w-md mx-auto">
+          Use the search bar at the top to find products by name or description.
+        </p>
+        <a href="/collections/all" class="inline-block px-8 py-3 bg-black text-white rounded-full font-bold hover:bg-pink-500 transition-colors">
+          Browse Collection
+        </a>
+      </div>
     {% endif %}
-    
   </div>
 </div>
 
-{% paginate search.results by 12 %}
-  <!-- Paginate wrapper (hidden, used for pagination logic) -->
+<style>
+  .font-serif-display { font-family: 'Playfair Display', serif; }
+  .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+</style>
+
 {% endpaginate %}
+
+{% schema %}
+{
+  "name": "Search Results",
+  "description": "Display search results for products with filtering and sorting"
+}
+{% endschema %}

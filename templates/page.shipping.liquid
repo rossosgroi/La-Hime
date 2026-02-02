@@ -1,60 +1,66 @@
 {% comment %}
-  Shipping Policy Page - La Hime
-  Converted from InfoPage.tsx type="shipping"
+  Shipping Policy Page
 {% endcomment %}
 
-<div class="pt-44 pb-24 min-h-screen bg-white">
-  <div class="max-w-4xl mx-auto px-4">
-    <h1 class="font-serif text-5xl text-gray-900 mb-16 text-center">Shipping Policy</h1>
+<div class="pt-32 pb-24 min-h-screen bg-white">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
     
-    <div class="prose prose-pink max-w-none">
-      <div class="space-y-8 text-gray-700">
-        
-        <section>
-          <h3 class="font-bold text-xl text-gray-900 mb-4">Global Delivery</h3>
-          <p class="leading-relaxed">
-            La Hime is proud to ship to our princesses worldwide. All orders are processed within 1-2 business days from our Rome studio.
-            Once dispatched, you will receive a tracking link to follow your package's journey via DHL or FedEx.
-          </p>
-        </section>
-        
-        <section>
-          <h3 class="font-bold text-xl text-gray-900 mb-4">Shipping Rates & Times</h3>
-          <div class="overflow-hidden border border-gray-200 rounded-lg shadow-sm">
-            <table class="min-w-full divide-y divide-gray-200">
-              <thead class="bg-gray-50">
-                <tr>
-                  <th class="px-6 py-4 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">Region</th>
-                  <th class="px-6 py-4 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">Service</th>
-                  <th class="px-6 py-4 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">Time</th>
-                  <th class="px-6 py-4 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">Cost</th>
-                </tr>
-              </thead>
-              <tbody class="bg-white divide-y divide-gray-200">
-                <tr>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Europe</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">Standard</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">3-5 Days</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">€10 (Free over €150)</td>
-                </tr>
-                <tr>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">USA & Canada</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">Express</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">2-4 Days</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">$25</td>
-                </tr>
-                <tr>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Rest of World</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">Express</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">3-7 Days</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">$35</td>
-                </tr>
-              </tbody>
-            </table>
+    <h1 class="font-serif-display text-4xl md:text-5xl mb-2 text-gray-900">Shipping Policy</h1>
+    <p class="text-gray-500 mb-12">Last updated: February 2026</p>
+
+    <div class="prose prose-lg max-w-none space-y-8 text-gray-700">
+      
+      <section>
+        <h2 class="font-serif-display text-2xl text-gray-900 mb-4">Shipping Methods</h2>
+        <div class="space-y-4">
+          <div>
+            <h3 class="font-bold text-gray-900">Standard Shipping</h3>
+            <p class="text-gray-600">5-7 business days • FREE on orders over $150</p>
+            <p class="text-sm text-gray-500">Delivery time is estimated and not guaranteed. International orders may take longer.</p>
           </div>
-        </section>
-        
+          <div>
+            <h3 class="font-bold text-gray-900">Express Shipping</h3>
+            <p class="text-gray-600">1-2 business days • $24.99</p>
+            <p class="text-sm text-gray-500">Expedited shipping for urgent orders.</p>
+          </div>
+          <div>
+            <h3 class="font-bold text-gray-900">International Shipping</h3>
+            <p class="text-gray-600">10-15 business days • Calculated at checkout</p>
+            <p class="text-sm text-gray-500">We ship to most countries worldwide. Customs and duties may apply.</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="font-serif-display text-2xl text-gray-900 mb-4">Order Processing</h2>
+        <p>Orders are processed within 1-2 business days during business hours (Monday-Friday, 9am-6pm CET). Orders placed during weekends or holidays will be processed the next business day.</p>
+      </section>
+
+      <section>
+        <h2 class="font-serif-display text-2xl text-gray-900 mb-4">Tracking Your Order</h2>
+        <p>Once your order ships, you'll receive an email with a tracking number. You can track your package using this number on the carrier's website.</p>
+      </section>
+
+      <section>
+        <h2 class="font-serif-display text-2xl text-gray-900 mb-4">Shipping Delays</h2>
+        <p>While we strive for on-time delivery, delays can occur due to weather, customs, or carrier issues. We are not liable for delays caused by third-party carriers.</p>
+      </section>
+
+      <section>
+        <h2 class="font-serif-display text-2xl text-gray-900 mb-4">Lost or Damaged Packages</h2>
+        <p>If your package arrives damaged or doesn't arrive within the estimated timeframe, please contact us immediately with photos and tracking information. We will file a claim with the carrier or resend your order.</p>
+      </section>
+
+      <div class="bg-pink-50 p-6 rounded-lg border border-pink-200 mt-12">
+        <p class="font-bold text-gray-900 mb-2">Have questions about shipping?</p>
+        <p class="text-gray-600">Contact us at <a href="mailto:contact@lahime.com" class="text-pink-500 hover:underline">contact@lahime.com</a></p>
       </div>
     </div>
   </div>
 </div>
+
+<style>
+  .font-serif-display { font-family: 'Playfair Display', serif; }
+</style>
+
+{% schema %}{ "name": "Shipping Policy" }{% endschema %}

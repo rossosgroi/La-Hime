@@ -1,0 +1,305 @@
+{% comment %}
+  Customer Account Page - Dashboard & Order History
+  Mirrors La Hime React Account.tsx functionality
+{% endcomment %}
+
+{% if customer %}
+  <div class="pt-32 pb-24 min-h-screen bg-stone-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      {%- comment -%} Account Header {%- endcomment -%}
+      <div class="mb-12">
+        <h1 class="font-serif-display text-4xl md:text-5xl mb-2 text-gray-900">
+          Welcome, {{ customer.first_name | default: customer.email }}
+        </h1>
+        <p class="text-gray-500">Manage your account and view your orders</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        {%- comment -%} Account Sidebar {%- endcomment -%}
+        <div class="lg:col-span-1">
+          <div class="bg-white p-6 rounded-2xl shadow-sm sticky top-32 space-y-6">
+            <h2 class="font-bold text-lg text-gray-900 border-b border-gray-100 pb-4">Account Menu</h2>
+            
+            <nav class="space-y-3">
+              <a href="#orders" class="block text-gray-700 hover:text-pink-500 hover:pl-2 transition-all py-2 font-medium">
+                📦 Order History
+              </a>
+              <a href="#profile" class="block text-gray-700 hover:text-pink-500 hover:pl-2 transition-all py-2 font-medium">
+                👤 Profile
+              </a>
+              <a href="#addresses" class="block text-gray-700 hover:text-pink-500 hover:pl-2 transition-all py-2 font-medium">
+                📍 Addresses
+              </a>
+              <a href="#wishlist" class="block text-gray-700 hover:text-pink-500 hover:pl-2 transition-all py-2 font-medium">
+                ♡ Wishlist
+              </a>
+            </nav>
+
+            <hr class="border-gray-100">
+
+            <a 
+              href="{{ routes.account_logout_url }}" 
+              class="block w-full text-center py-3 bg-gray-100 text-gray-900 rounded-lg font-bold hover:bg-gray-200 transition-colors"
+            >
+              Sign Out
+            </a>
+          </div>
+        </div>
+
+        {%- comment -%} Account Content {%- endcomment -%}
+        <div class="lg:col-span-2 space-y-8">
+
+          {%- comment -%} ORDERS SECTION {%- endcomment -%}
+          <section id="orders" class="bg-white p-8 rounded-2xl shadow-sm">
+            <h2 class="font-serif-display text-2xl mb-6 text-gray-900 flex items-center gap-2">
+              <span>📦</span> Order History
+            </h2>
+
+            {% if customer.orders.size > 0 %}
+              <div class="space-y-4">
+                {% for order in customer.orders %}
+                  <details class="group border border-gray-200 rounded-lg p-4 hover:border-pink-300 transition-colors cursor-pointer">
+                    <summary class="flex justify-between items-center font-medium text-gray-900 group-open:text-pink-500 transition-colors">
+                      <div>
+                        <p class="font-bold">Order #{{ order.order_number }}</p>
+                        <p class="text-sm text-gray-500">{{ order.created_at | date: "%B %d, %Y" }}</p>
+                      </div>
+                      <div class="flex items-center gap-4">
+                        <span class="text-lg font-bold">{{ order.total_price | money }}</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="group-open:rotate-180 transition-transform">
+                          <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                      </div>
+                    </summary>
+
+                    {%- comment -%} Order Details {%- endcomment -%}
+                    <div class="mt-6 space-y-4 border-t border-gray-100 pt-4">
+                      
+                      {%- comment -%} Status Badge {%- endcomment -%}
+                      <div class="flex gap-4">
+                        <span class="
+                          {% if order.financial_status == 'paid' %}
+                            bg-green-100 text-green-700
+                          {% elsif order.financial_status == 'pending' %}
+                            bg-yellow-100 text-yellow-700
+                          {% else %}
+                            bg-red-100 text-red-700
+                          {% endif %}
+                          px-3 py-1 rounded-full text-sm font-bold uppercase
+                        ">
+                          Payment: {{ order.financial_status | capitalize }}
+                        </span>
+                        
+                        <span class="
+                          {% if order.fulfillment_status == 'fulfilled' %}
+                            bg-blue-100 text-blue-700
+                          {% elsif order.fulfillment_status == 'partial' %}
+                            bg-orange-100 text-orange-700
+                          {% else %}
+                            bg-gray-100 text-gray-700
+                          {% endif %}
+                          px-3 py-1 rounded-full text-sm font-bold uppercase
+                        ">
+                          Shipping: {{ order.fulfillment_status | default: 'Pending' | capitalize }}
+                        </span>
+                      </div>
+
+                      {%- comment -%} Order Items {%- endcomment -%}
+                      <div class="space-y-2 mt-4">
+                        <p class="font-bold text-gray-900 text-sm">Items:</p>
+                        {% for item in order.line_items %}
+                          <div class="flex justify-between text-sm text-gray-600 ml-4">
+                            <span>{{ item.title }} x {{ item.quantity }}</span>
+                            <span>{{ item.final_line_price | money }}</span>
+                          </div>
+                        {% endfor %}
+                      </div>
+
+                      {%- comment -%} Order Summary {%- endcomment -%}
+                      <div class="border-t border-gray-100 pt-4 mt-4 space-y-2 text-sm">
+                        <div class="flex justify-between text-gray-600">
+                          <span>Subtotal:</span>
+                          <span>{{ order.line_items_subtotal_price | money }}</span>
+                        </div>
+                        {% if order.shipping_price > 0 %}
+                          <div class="flex justify-between text-gray-600">
+                            <span>Shipping:</span>
+                            <span>{{ order.shipping_price | money }}</span>
+                          </div>
+                        {% endif %}
+                        <div class="flex justify-between font-bold text-gray-900">
+                          <span>Total:</span>
+                          <span>{{ order.total_price | money }}</span>
+                        </div>
+                      </div>
+
+                      {%- comment -%} View Order Button {%- endcomment -%}
+                      <a 
+                        href="{{ order.customer_url }}" 
+                        class="inline-block mt-4 px-6 py-2 bg-black text-white rounded-full font-bold text-sm hover:bg-pink-500 transition-colors"
+                      >
+                        View Order Details
+                      </a>
+                    </div>
+                  </details>
+                {% endfor %}
+              </div>
+            {% else %}
+              <p class="text-gray-500 text-center py-8">You haven't placed any orders yet.</p>
+              <a href="/collections/all" class="inline-block mt-4 px-6 py-3 bg-black text-white rounded-full font-bold hover:bg-pink-500 transition-colors">
+                Start Shopping
+              </a>
+            {% endif %}
+          </section>
+
+          {%- comment -%} PROFILE SECTION {%- endcomment -%}
+          <section id="profile" class="bg-white p-8 rounded-2xl shadow-sm">
+            <h2 class="font-serif-display text-2xl mb-6 text-gray-900 flex items-center gap-2">
+              <span>👤</span> Profile Information
+            </h2>
+
+            <div class="space-y-4">
+              <div>
+                <p class="text-sm text-gray-500 mb-1">Email</p>
+                <p class="font-medium text-gray-900">{{ customer.email }}</p>
+              </div>
+              
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <p class="text-sm text-gray-500 mb-1">First Name</p>
+                  <p class="font-medium text-gray-900">{{ customer.first_name | default: "—" }}</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-500 mb-1">Last Name</p>
+                  <p class="font-medium text-gray-900">{{ customer.last_name | default: "—" }}</p>
+                </div>
+              </div>
+
+              <div>
+                <p class="text-sm text-gray-500 mb-1">Account Created</p>
+                <p class="font-medium text-gray-900">{{ customer.created_at | date: "%B %d, %Y" }}</p>
+              </div>
+            </div>
+
+            <a 
+              href="{{ routes.account_edit_url }}" 
+              class="inline-block mt-6 px-6 py-3 bg-black text-white rounded-full font-bold hover:bg-pink-500 transition-colors"
+            >
+              Edit Profile
+            </a>
+          </section>
+
+          {%- comment -%} ADDRESSES SECTION {%- endcomment -%}
+          <section id="addresses" class="bg-white p-8 rounded-2xl shadow-sm">
+            <div class="flex justify-between items-center mb-6">
+              <h2 class="font-serif-display text-2xl text-gray-900 flex items-center gap-2">
+                <span>📍</span> Saved Addresses
+              </h2>
+              <a 
+                href="{{ routes.account_addresses_url }}" 
+                class="text-pink-500 hover:text-pink-600 font-bold text-sm"
+              >
+                + Add Address
+              </a>
+            </div>
+
+            {% if customer.addresses.size > 0 %}
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {% for address in customer.addresses %}
+                  <div class="border border-gray-200 rounded-lg p-4 hover:border-pink-300 transition-colors">
+                    <p class="font-bold text-gray-900 mb-2">{{ address.name }}</p>
+                    <p class="text-sm text-gray-600">{{ address.street }}</p>
+                    <p class="text-sm text-gray-600">{{ address.city }}, {{ address.province }} {{ address.zip }}</p>
+                    <p class="text-sm text-gray-600">{{ address.country }}</p>
+                    
+                    {% if address.default %}
+                      <span class="inline-block mt-2 px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full">Default</span>
+                    {% endif %}
+
+                    <div class="flex gap-2 mt-4">
+                      <a 
+                        href="{{ routes.account_addresses_url }}" 
+                        class="text-sm text-pink-500 hover:text-pink-600 font-medium"
+                      >
+                        Edit
+                      </a>
+                      <a 
+                        href="{{ routes.account_addresses_url }}" 
+                        class="text-sm text-red-500 hover:text-red-600 font-medium"
+                      >
+                        Delete
+                      </a>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            {% else %}
+              <p class="text-gray-500 text-center py-8">No saved addresses yet.</p>
+            {% endif %}
+          </section>
+
+          {%- comment -%} WISHLIST SECTION {%- endcomment -%}
+          <section id="wishlist" class="bg-white p-8 rounded-2xl shadow-sm">
+            <h2 class="font-serif-display text-2xl mb-6 text-gray-900 flex items-center gap-2">
+              <span>♡</span> Your Wishlist
+            </h2>
+
+            <p class="text-gray-500">Wishlist functionality will be available soon. Items you mark as favorites will appear here.</p>
+            
+            <a 
+              href="/collections/all" 
+              class="inline-block mt-6 px-6 py-3 bg-black text-white rounded-full font-bold hover:bg-pink-500 transition-colors"
+            >
+              Browse Collections
+            </a>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% else %}
+  {%- comment -%} Not Logged In Redirect {%- endcomment -%}
+  <div class="pt-32 pb-24 min-h-screen bg-stone-50 flex items-center justify-center">
+    <div class="text-center max-w-md">
+      <h1 class="font-serif-display text-4xl mb-4 text-gray-900">Please Log In</h1>
+      <p class="text-gray-500 mb-8">You need to be logged in to access your account.</p>
+      
+      <div class="flex flex-col gap-4">
+        <a 
+          href="{{ routes.account_login_url }}" 
+          class="block px-8 py-3 bg-black text-white rounded-full font-bold hover:bg-pink-500 transition-colors"
+        >
+          Sign In
+        </a>
+        <a 
+          href="{{ routes.account_register_url }}" 
+          class="block px-8 py-3 bg-white text-black border border-gray-200 rounded-full font-bold hover:border-gray-900 transition-colors"
+        >
+          Create Account
+        </a>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+<style>
+  .font-serif-display {
+    font-family: 'Playfair Display', serif;
+  }
+
+  @media (max-width: 1024px) {
+    .sticky {
+      position: static;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Customer Account",
+  "description": "Customer account dashboard with order history and profile"
+}
+{% endschema %}

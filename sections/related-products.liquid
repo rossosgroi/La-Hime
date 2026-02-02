@@ -1,61 +1,101 @@
 {% comment %}
-  Related Products Section
+  Related Products Section - Matches La Hime ProductDetail related section
+  Shows products from same collection
 {% endcomment %}
 
-<section class="related-products" style="margin-top: 4rem;">
-  <div class="container">
-    <h2>You Might Also Like</h2>
-    
-    <div class="product-grid">
-      {% assign related = collection.products | limit: 4 %}
-      {% for product in related %}
-        {% unless product.handle == page.handle %}
-          <div class="product-card">
-            <a href="{{ product.url }}">
-              <div class="product-image">
-                {% if product.featured_image %}
+{% if product.collections.size > 0 %}
+  {% assign collection = product.collections.first %}
+  
+  <section class="py-20 bg-gray-50 border-t border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="font-serif-display text-4xl md:text-5xl text-gray-900 mb-2">
+          Complete Your Look
+        </h2>
+        <p class="text-gray-600 text-lg">
+          Discover more pieces from our collection
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        {% for product in collection.products limit: 4 %}
+          {% unless product.handle == page.handle %}
+            <div class="group cursor-pointer transform transition-all duration-300 hover:-translate-y-2">
+              <div class="relative aspect-[3/4] bg-gray-100 rounded-xl overflow-hidden mb-4 shadow-sm group-hover:shadow-lg">
+                {%- if product.featured_image -%}
                   <img 
-                    src="{{ product.featured_image | image_url: width: 300 }}" 
+                    src="{{ product.featured_image | image_url: width: 350, height: 480 }}" 
                     alt="{{ product.title }}"
                     loading="lazy"
-                  >
-                {% endif %}
+                    class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                {%- endif -%}
+
+                {%- if product.images.size > 1 -%}
+                  <img 
+                    src="{{ product.images[1] | image_url: width: 350, height: 480 }}" 
+                    alt="{{ product.title }} alternate view"
+                    class="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  />
+                {%- endif -%}
+
+                {%- if product.tags contains 'new' -%}
+                  <span class="absolute top-3 left-3 bg-black text-white text-xs font-bold px-2 py-1 rounded-full uppercase">
+                    New
+                  </span>
+                {%- endif -%}
+
+                <button 
+                  class="absolute bottom-4 right-4 p-2 bg-white rounded-full shadow-lg hover:bg-pink-500 hover:text-white transition-all duration-200 transform opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 wishlist-quick"
+                  data-product-id="{{ product.id }}"
+                  data-product-title="{{ product.title }}"
+                  data-product-image="{{ product.featured_image | image_url }}"
+                  aria-label="Add to wishlist"
+                >
+                  ♡
+                </button>
               </div>
-              <div class="product-info">
-                <h3 class="product-name">{{ product.title }}</h3>
-                <p class="product-price">{{ product.price | money }}</p>
-              </div>
-            </a>
-            <div class="product-actions">
-              <button 
-                class="add-to-cart-btn"
-                data-product-id="{{ product.id }}"
-                data-product-title="{{ product.title }}"
-                data-product-price="{{ product.price | money }}"
-                data-product-image="{{ product.featured_image | image_url }}"
-              >
-                Add to Cart
-              </button>
-              <button 
-                class="wishlist-btn"
-                data-product-id="{{ product.id }}"
-                data-product-title="{{ product.title }}"
-                data-product-price="{{ product.price | money }}"
-                data-product-image="{{ product.featured_image | image_url }}"
-              >
-                ♡
-              </button>
+
+              <a href="{{ product.url }}" class="block">
+                <h3 class="font-bold text-gray-900 mb-1 group-hover:text-pink-500 transition-colors">
+                  {{ product.title | truncatewords: 5 }}
+                </h3>
+                <p class="text-gray-600 text-sm mb-3">
+                  {{ product.price | money }}
+                </p>
+              </a>
+
+              <form action="/cart/add" method="post" class="add-to-cart-form">
+                <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                <button 
+                  type="submit"
+                  class="w-full py-2 bg-black text-white rounded-full text-sm font-bold hover:bg-pink-500 transition-colors duration-200"
+                >
+                  Add to Cart
+                </button>
+              </form>
             </div>
-          </div>
-        {% endunless %}
-      {% endfor %}
+          {% endunless %}
+        {% endfor %}
+      </div>
+
+      <div class="text-center mt-12">
+        <a href="/collections/{{ collection.handle }}" class="inline-block px-8 py-3 border-2 border-black text-black font-bold rounded-full hover:bg-black hover:text-white transition-colors">
+          View Full Collection
+        </a>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+{% endif %}
+
+<style>
+  .font-serif-display { font-family: 'Playfair Display', serif; }
+</style>
 
 {% schema %}
 {
   "name": "Related Products",
+  "description": "Display related products from the same collection",
   "templates": ["product"]
 }
 {% endschema %}

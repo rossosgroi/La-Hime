@@ -1,107 +1,282 @@
 {% comment %}
-  Product Template Section - Individual Product Page
+  Product Detail Page - Full Featured Product Page
+  Mirrors La Hime React ProductDetail.tsx functionality
 {% endcomment %}
 
-<section class="product-detail">
-  <div class="product-gallery">
-    <div class="gallery-main">
-      {% if product.featured_image %}
-        <img 
-          src="{{ product.featured_image | image_url: width: 800 }}" 
-          alt="{{ product.title }}"
-          id="main-product-image"
-        >
-      {% endif %}
-    </div>
+<div class="pt-32 pb-24 min-h-screen bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     
-    {% if product.images.size > 1 %}
-      <div class="gallery-thumbs">
-        {% for image in product.images %}
-          <div class="gallery-thumb {% if forloop.first %}active{% endif %}" onclick="updateMainImage('{{ image | image_url: width: 800 }}')">
-            <img src="{{ image | image_url: width: 100 }}" alt="{{ product.title }}">
-          </div>
-        {% endfor %}
-      </div>
-    {% endif %}
-  </div>
-
-  <div class="product-details">
-    <h1>{{ product.title }}</h1>
-    
-    <div class="product-meta">
-      <span class="product-price">{{ product.price | money }}</span>
-      {% if product.available == false %}
-        <span style="color: #dc2626;">Out of Stock</span>
-      {% else %}
-        <span style="color: #16a34a;">In Stock</span>
-      {% endif %}
+    {%- comment -%} Breadcrumb Navigation {%- endcomment -%}
+    <div class="text-sm text-gray-500 mb-8 flex items-center gap-2">
+      <a href="/" class="hover:text-black transition-colors">Home</a>
+      <span>/</span>
+      <a href="/collections/all" class="hover:text-black transition-colors">Shop</a>
+      <span>/</span>
+      <span class="text-black font-medium">{{ product.title }}</span>
     </div>
 
-    {% if product.description %}
-      <div class="product-description">
-        {{ product.description }}
-      </div>
-    {% endif %}
-
-    <form action="/cart/add" method="post" enctype="multipart/form-data" id="product-form">
-      {% if product.variants.size > 1 %}
-        <div class="size-selector">
-          <label for="variant-selector">Size</label>
-          <select id="variant-selector" name="id">
-            {% for variant in product.variants %}
-              <option value="{{ variant.id }}" {% if variant.available == false %}disabled{% endif %}>
-                {{ variant.title }} {% if variant.available == false %}(Unavailable){% endif %}
-              </option>
-            {% endfor %}
-          </select>
-        </div>
-      {% else %}
-        <input type="hidden" name="id" value="{{ product.variants.first.id }}">
-      {% endif %}
-
-      <div class="product-actions">
-        <button 
-          type="submit" 
-          class="add-to-cart"
-          {% if product.available == false %}disabled{% endif %}
-        >
-          {% if product.available %}
-            Add to Cart
-          {% else %}
-            Out of Stock
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20">
+      
+      {%- comment -%} Gallery Section {%- endcomment -%}
+      <div class="space-y-4">
+        <div class="aspect-[3/4] w-full bg-gray-100 rounded-2xl overflow-hidden relative border border-gray-100 shadow-sm">
+          <img 
+            src="{{ product.featured_image | image_url: width: 600, height: 800 }}" 
+            alt="{{ product.title }}" 
+            class="w-full h-full object-cover"
+            id="main-product-image"
+          />
+          
+          {%- comment -%} Badge {%- endcomment -%}
+          {% if product.tags contains 'new' %}
+            <span class="absolute top-4 left-4 bg-black text-white text-xs font-bold px-3 py-1 rounded-full uppercase shadow-md">
+              New Season
+            </span>
           {% endif %}
-        </button>
-        <button 
-          type="button"
-          class="wishlist-toggle"
-          data-product-id="{{ product.id }}"
-          data-product-title="{{ product.title }}"
-          data-product-price="{{ product.price | money }}"
-          data-product-image="{{ product.featured_image | image_url }}"
-        >
-          ♡ Add to Wishlist
-        </button>
-      </div>
-    </form>
+        </div>
 
-    {% if product.metafields.custom.shipping_info %}
-      <div style="margin-top: 2rem; padding: 1rem; background: #f9f9f9; border-radius: 4px;">
-        <p><strong>Shipping:</strong> {{ product.metafields.custom.shipping_info }}</p>
+        {%- comment -%} Thumbnail Gallery {%- endcomment -%}
+        {% if product.images.size > 1 %}
+          <div class="grid grid-cols-4 gap-4">
+            {% for image in product.images %}
+              <button 
+                onclick="updateMainImage(this)"
+                data-image="{{ image | image_url: width: 600, height: 800 }}"
+                class="aspect-square rounded-lg overflow-hidden border-2 transition-all {% if forloop.first %}border-black opacity-100{% else %}border-transparent opacity-70 hover:opacity-100{% endif %}"
+              >
+                <img 
+                  src="{{ image | image_url: width: 100 }}" 
+                  alt="Product thumbnail"
+                  class="w-full h-full object-cover"
+                />
+              </button>
+            {% endfor %}
+          </div>
+        {% endif %}
       </div>
-    {% endif %}
+
+      {%- comment -%} Product Details Section {%- endcomment -%}
+      <div class="space-y-8">
+        
+        {%- comment -%} Product Title & Price {%- endcomment -%}
+        <div>
+          <h1 class="font-serif-display text-4xl md:text-5xl mb-4 text-gray-900">
+            {{ product.title }}
+          </h1>
+          
+          <div class="flex items-center gap-4 mb-4">
+            <span class="text-3xl font-bold text-gray-900">
+              {{ product.price | money }}
+            </span>
+            
+            {% if product.compare_at_price %}
+              <span class="text-lg text-gray-500 line-through">
+                {{ product.compare_at_price | money }}
+              </span>
+            {% endif %}
+          </div>
+
+          {%- comment -%} Stock Status {%- endcomment -%}
+          <div>
+            {% if product.available %}
+              <span class="inline-block px-3 py-1 bg-green-100 text-green-700 text-sm font-bold rounded-full">
+                ✓ In Stock
+              </span>
+            {% else %}
+              <span class="inline-block px-3 py-1 bg-red-100 text-red-700 text-sm font-bold rounded-full">
+                Out of Stock
+              </span>
+            {% endif %}
+          </div>
+        </div>
+
+        {%- comment -%} Description {%- endcomment -%}
+        {% if product.description %}
+          <div class="prose prose-sm max-w-none text-gray-600">
+            {{ product.description }}
+          </div>
+        {% endif %}
+
+        {%- comment -%} Add to Cart Form {%- endcomment -%}
+        <form method="post" action="/cart/add" id="product-form" class="space-y-6">
+          
+          {%- comment -%} Size/Variant Selection {%- endcomment -%}
+          {% if product.variants.size > 1 %}
+            <div>
+              <label class="block text-sm font-bold text-gray-900 mb-3">
+                Select Size
+              </label>
+              <div class="grid grid-cols-4 gap-3">
+                {% for variant in product.variants %}
+                  {% if variant.available %}
+                    <label class="relative">
+                      <input 
+                        type="radio" 
+                        name="id" 
+                        value="{{ variant.id }}" 
+                        class="sr-only peer"
+                        {% if forloop.first %}checked{% endif %}
+                      />
+                      <div class="p-3 rounded-lg border-2 border-gray-200 text-center font-bold text-gray-900 cursor-pointer transition-all peer-checked:border-black peer-checked:bg-black peer-checked:text-white hover:border-gray-900">
+                        {{ variant.option1 | default: "One Size" }}
+                      </div>
+                    </label>
+                  {% else %}
+                    <div class="p-3 rounded-lg border-2 border-gray-200 text-center font-bold text-gray-400 bg-gray-50 opacity-50 cursor-not-allowed">
+                      {{ variant.option1 }}
+                    </div>
+                  {% endif %}
+                {% endfor %}
+              </div>
+              <input type="hidden" id="selected-variant" name="id" value="{{ product.variants.first.id }}">
+            </div>
+          {% else %}
+            <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+          {% endif %}
+
+          {%- comment -%} Quantity Selector {%- endcomment -%}
+          <div>
+            <label class="block text-sm font-bold text-gray-900 mb-3">Quantity</label>
+            <div class="flex items-center border border-gray-200 rounded-full w-fit">
+              <button type="button" class="p-2 hover:bg-gray-50 transition-colors" onclick="decreaseQuantity()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+              </button>
+              <input 
+                type="number" 
+                name="quantity" 
+                value="1" 
+                min="1" 
+                class="w-12 text-center font-bold outline-none"
+                id="quantity"
+              />
+              <button type="button" class="p-2 hover:bg-gray-50 transition-colors" onclick="increaseQuantity()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          {%- comment -%} Add to Cart Button {%- endcomment -%}
+          <button 
+            type="submit"
+            class="w-full py-4 bg-black text-white rounded-full font-bold uppercase tracking-wider hover:bg-pink-500 transition-colors shadow-lg hover:shadow-pink-500/40 transform hover:-translate-y-1 duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            {% unless product.available %}disabled{% endunless %}
+            id="add-to-cart-btn"
+          >
+            {% if product.available %}
+              Add to Cart
+            {% else %}
+              Out of Stock
+            {% endif %}
+          </button>
+
+          {%- comment -%} Add to Wishlist {%- endcomment -%}
+          <button 
+            type="button"
+            class="w-full py-3 border-2 border-gray-200 text-gray-900 rounded-full font-bold uppercase tracking-wider hover:border-pink-500 hover:text-pink-500 transition-colors wishlist-toggle"
+            data-product-id="{{ product.id }}"
+            data-product-title="{{ product.title }}"
+            data-product-image="{{ product.featured_image | image_url }}"
+          >
+            ♡ Add to Wishlist
+          </button>
+        </form>
+
+        {%- comment -%} Notification (Shown on add) {%- endcomment -%}
+        <div id="add-notification" class="hidden p-4 bg-green-100 border border-green-200 rounded-lg text-green-700 font-bold text-center">
+          ✓ Added to Cart!
+        </div>
+
+        {%- comment -%} Trust Badges & Info {%- endcomment -%}
+        <div class="space-y-4 pt-6 border-t border-gray-200">
+          <div class="flex items-start gap-3">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" class="text-green-600 flex-shrink-0 mt-1">
+              <path d="M12 0a12 12 0 1 0 0 24 12 12 0 0 0 0-24zm-2 16l-4-4 1.41-1.41L10 12.17l6.59-6.59L18 7l-8 9z"/>
+            </svg>
+            <div>
+              <p class="font-bold text-gray-900">Secure Checkout</p>
+              <p class="text-sm text-gray-600">Powered by Shopify Payments</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" class="text-blue-600 flex-shrink-0 mt-1">
+              <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+            </svg>
+            <div>
+              <p class="font-bold text-gray-900">30-Day Returns</p>
+              <p class="text-sm text-gray-600"><a href="/pages/returns" class="text-pink-500 hover:underline">See policy</a></p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" class="text-pink-600 flex-shrink-0 mt-1">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+            <div>
+              <p class="font-bold text-gray-900">Save to Wishlist</p>
+              <p class="text-sm text-gray-600">Track your favorites</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</section>
+</div>
 
 <script>
-  function updateMainImage(imageUrl) {
+  function updateMainImage(button) {
+    const imageUrl = button.dataset.image;
     document.getElementById('main-product-image').src = imageUrl;
-    document.querySelectorAll('.gallery-thumb').forEach(thumb => thumb.classList.remove('active'));
-    event.target.closest('.gallery-thumb').classList.add('active');
+    document.querySelectorAll('button[data-image]').forEach(btn => {
+      btn.classList.remove('border-black', 'opacity-100');
+      btn.classList.add('border-transparent', 'opacity-70');
+    });
+    button.classList.add('border-black', 'opacity-100');
+    button.classList.remove('border-transparent', 'opacity-70');
   }
+
+  function increaseQuantity() {
+    const input = document.getElementById('quantity');
+    input.value = parseInt(input.value) + 1;
+  }
+
+  function decreaseQuantity() {
+    const input = document.getElementById('quantity');
+    if (parseInt(input.value) > 1) {
+      input.value = parseInt(input.value) - 1;
+    }
+  }
+
+  // Show notification on add to cart
+  document.getElementById('product-form').addEventListener('submit', function(e) {
+    const notification = document.getElementById('add-notification');
+    notification.classList.remove('hidden');
+    setTimeout(() => {
+      notification.classList.add('hidden');
+    }, 3000);
+  });
+
+  // Update selected variant on radio change
+  document.querySelectorAll('input[name="id"]').forEach(radio => {
+    radio.addEventListener('change', function() {
+      document.getElementById('selected-variant').value = this.value;
+    });
+  });
 </script>
+
+<style>
+  .font-serif-display { font-family: 'Playfair Display', serif; }
+  .prose { font-size: 1rem; line-height: 1.625; }
+</style>
 
 {% schema %}
 {
-  "name": "Product Template"
+  "name": "Product Template",
+  "description": "Full featured product page with gallery, variants, and add to cart"
 }
 {% endschema %}

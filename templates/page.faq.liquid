@@ -1,62 +1,122 @@
 {% comment %}
-  FAQ Page - La Hime
-  Converted from InfoPage.tsx type="faq"
+  FAQ Page
 {% endcomment %}
 
-<div class="pt-44 pb-24 min-h-screen bg-white">
-  <div class="max-w-4xl mx-auto px-4">
-    <h1 class="font-serif text-5xl text-gray-900 mb-16 text-center">Frequently Asked Questions</h1>
+<div class="pt-32 pb-24 min-h-screen bg-white">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
     
-    <div class="prose prose-pink max-w-none">
-      <div class="space-y-12 text-gray-700">
-        
-        <section>
-          <h3 class="font-serif text-2xl text-gray-900 mb-6 pb-2 border-b border-gray-100">Orders & Shipping</h3>
-          <div class="space-y-8">
-            <div>
-              <h4 class="font-bold text-gray-900 text-lg mb-2">Can I change or cancel my order?</h4>
-              <p class="text-gray-600">We work fast! Once an order is placed, we have a very short window (about 1 hour) to make changes. Please email <span class="font-medium text-black">contact@lahime.com</span> immediately with your request.</p>
-            </div>
-            <div>
-              <h4 class="font-bold text-gray-900 text-lg mb-2">Where is my order confirmation?</h4>
-              <p class="text-gray-600">Check your spam folder! If you still can't find it, ensure you entered the correct email address at checkout or contact support.</p>
-            </div>
-            <div>
-              <h4 class="font-bold text-gray-900 text-lg mb-2">Do you ship internationally?</h4>
-              <p class="text-gray-600">Yes, we ship globally! Please note that for orders outside the EU, custom duties and taxes may apply upon arrival and are the responsibility of the recipient.</p>
-            </div>
-          </div>
-        </section>
-        
-        <section>
-          <h3 class="font-serif text-2xl text-gray-900 mb-6 pb-2 border-b border-gray-100">Product & Care</h3>
-          <div class="space-y-8">
-            <div>
-              <h4 class="font-bold text-gray-900 text-lg mb-2">How do I wash my La Hime items?</h4>
-              <p class="text-gray-600">Most of our items feature delicate details like lace, satin, and rhinestones. We highly recommend <span class="font-bold">hand washing in cold water</span> or dry cleaning. Do not tumble dry.</p>
-            </div>
-            <div>
-              <h4 class="font-bold text-gray-900 text-lg mb-2">Are the size charts accurate?</h4>
-              <p class="text-gray-600">Yes, our sizing is based on standard European measurements. We have updated our size guide to CM to help you find the perfect fit. If you're between sizes, we generally suggest sizing up.</p>
-            </div>
-            <div>
-              <h4 class="font-bold text-gray-900 text-lg mb-2">Do you offer gift wrapping?</h4>
-              <p class="text-gray-600">All La Hime orders arrive in our signature pink packaging, making them perfect for gifting. You can add a personalized note at checkout.</p>
-            </div>
-          </div>
-        </section>
+    <h1 class="font-serif-display text-4xl md:text-5xl mb-4 text-gray-900">Frequently Asked Questions</h1>
+    <p class="text-gray-500 mb-12">Can't find what you're looking for? <a href="/pages/contact" class="text-pink-500 hover:underline">Contact us</a></p>
 
-        <section>
-          <h3 class="font-serif text-2xl text-gray-900 mb-6 pb-2 border-b border-gray-100">Payments</h3>
-          <div class="space-y-8">
-            <div>
-              <h4 class="font-bold text-gray-900 text-lg mb-2">What payment methods do you accept?</h4>
-              <p class="text-gray-600">We accept major credit cards (Visa, Mastercard, Amex), PayPal, Apple Pay, and Google Pay.</p>
-            </div>
-          </div>
-        </section>
-        
-      </div>
+    <div class="space-y-4">
+      
+      <details class="group border border-gray-200 rounded-lg p-6 cursor-pointer hover:border-pink-300 transition-colors">
+        <summary class="flex justify-between items-center font-bold text-gray-900 group-open:text-pink-500 transition-colors">
+          <span>What is La Hime?</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="group-open:rotate-180 transition-transform">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </summary>
+        <p class="text-gray-600 mt-4">La Hime is a contemporary fashion brand that blends Y2K aesthetic with Tokyo-Shanghai streetwear culture. We create playful, trend-forward pieces for the modern fashion enthusiast.</p>
+      </details>
+
+      <details class="group border border-gray-200 rounded-lg p-6 cursor-pointer hover:border-pink-300 transition-colors">
+        <summary class="flex justify-between items-center font-bold text-gray-900 group-open:text-pink-500 transition-colors">
+          <span>How do I know my size?</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="group-open:rotate-180 transition-transform">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </summary>
+        <p class="text-gray-600 mt-4">Check out our <a href="/pages/size-guide" class="text-pink-500 hover:underline">Size Guide</a> for detailed measurements. We offer XS through L in most styles. If you're between sizes, we recommend sizing up for comfort.</p>
+      </details>
+
+      <details class="group border border-gray-200 rounded-lg p-6 cursor-pointer hover:border-pink-300 transition-colors">
+        <summary class="flex justify-between items-center font-bold text-gray-900 group-open:text-pink-500 transition-colors">
+          <span>Do you offer international shipping?</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="group-open:rotate-180 transition-transform">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </summary>
+        <p class="text-gray-600 mt-4">Yes! We ship to most countries worldwide. Shipping costs and delivery times vary by location. All international orders are subject to customs duties and taxes.</p>
+      </details>
+
+      <details class="group border border-gray-200 rounded-lg p-6 cursor-pointer hover:border-pink-300 transition-colors">
+        <summary class="flex justify-between items-center font-bold text-gray-900 group-open:text-pink-500 transition-colors">
+          <span>Can I cancel or modify my order?</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="group-open:rotate-180 transition-transform">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </summary>
+        <p class="text-gray-600 mt-4">Orders can be canceled or modified within 1 hour of placement. After that, items enter our fulfillment process. Contact us immediately at <a href="mailto:contact@lahime.com" class="text-pink-500 hover:underline">contact@lahime.com</a> if you need help.</p>
+      </details>
+
+      <details class="group border border-gray-200 rounded-lg p-6 cursor-pointer hover:border-pink-300 transition-colors">
+        <summary class="flex justify-between items-center font-bold text-gray-900 group-open:text-pink-500 transition-colors">
+          <span>What's your care instructions?</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="group-open:rotate-180 transition-transform">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </summary>
+        <p class="text-gray-600 mt-4">Care instructions vary by material. Always check the care label in your garment. Most items are hand-washable or machine-washable on delicate cycle. Never bleach or dry-clean unless specified.</p>
+      </details>
+
+      <details class="group border border-gray-200 rounded-lg p-6 cursor-pointer hover:border-pink-300 transition-colors">
+        <summary class="flex justify-between items-center font-bold text-gray-900 group-open:text-pink-500 transition-colors">
+          <span>Do you offer gift cards?</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="group-open:rotate-180 transition-transform">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </summary>
+        <p class="text-gray-600 mt-4">Yes! Digital and physical gift cards are available. Purchase directly from our shop or contact us for custom amounts and designs.</p>
+      </details>
+
+      <details class="group border border-gray-200 rounded-lg p-6 cursor-pointer hover:border-pink-300 transition-colors">
+        <summary class="flex justify-between items-center font-bold text-gray-900 group-open:text-pink-500 transition-colors">
+          <span>Is my payment secure?</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="group-open:rotate-180 transition-transform">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </summary>
+        <p class="text-gray-600 mt-4">Absolutely! We use Shopify's secure payment processing with industry-standard encryption (SSL). Your payment information is never stored on our servers.</p>
+      </details>
+
+      <details class="group border border-gray-200 rounded-lg p-6 cursor-pointer hover:border-pink-300 transition-colors">
+        <summary class="flex justify-between items-center font-bold text-gray-900 group-open:text-pink-500 transition-colors">
+          <span>Can I use multiple discount codes?</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="group-open:rotate-180 transition-transform">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </summary>
+        <p class="text-gray-600 mt-4">Most promotions cannot be combined. However, our student discount (15% off) can be combined with other offers. Check the terms of each promotion for details.</p>
+      </details>
+
+      <details class="group border border-gray-200 rounded-lg p-6 cursor-pointer hover:border-pink-300 transition-colors">
+        <summary class="flex justify-between items-center font-bold text-gray-900 group-open:text-pink-500 transition-colors">
+          <span>How do I get my receipt?</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="group-open:rotate-180 transition-transform">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </summary>
+        <p class="text-gray-600 mt-4">Your receipt is emailed immediately after checkout. You can also find it in your account under Order History. Digital receipts are valid for all return purposes.</p>
+      </details>
+
+    </div>
+
+    <div class="bg-pink-50 p-8 rounded-lg border border-pink-200 mt-16 text-center">
+      <h2 class="font-serif-display text-2xl text-gray-900 mb-4">Still have questions?</h2>
+      <p class="text-gray-600 mb-6">Our customer service team is here to help!</p>
+      <a 
+        href="/pages/contact" 
+        class="inline-block px-8 py-3 bg-black text-white rounded-full font-bold hover:bg-pink-500 transition-colors"
+      >
+        Contact Us
+      </a>
     </div>
   </div>
 </div>
+
+<style>
+  .font-serif-display { font-family: 'Playfair Display', serif; }
+</style>
+
+{% schema %}{ "name": "FAQ" }{% endschema %}
