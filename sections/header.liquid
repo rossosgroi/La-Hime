@@ -23,7 +23,16 @@
 
       {%- comment -%} CENTER: Logo {%- endcomment -%}
       <a href="/" class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center z-30 transition-transform hover:scale-105">
-        <span class="font-serif-display text-3xl text-black font-bold italic">La Hime</span>
+        {% if section.settings.logo %}
+          <img
+            src="{{ section.settings.logo | image_url: width: 200 }}"
+            alt="{{ shop.name }}"
+            class="h-12 w-auto"
+            loading="eager"
+          />
+        {% else %}
+          <span class="font-serif-display text-3xl text-black font-bold italic">La Hime</span>
+        {% endif %}
       </a>
 
       {%- comment -%} RIGHT: Search, Wishlist, Cart, Account {%- endcomment -%}
@@ -134,7 +143,15 @@
   <div class="p-6">
     {%- comment -%} Sidebar Header {%- endcomment -%}
     <div class="flex justify-between items-center mb-8">
-      <span class="font-brand text-3xl text-pink-500">La Hime</span>
+      {% if section.settings.logo %}
+        <img
+          src="{{ section.settings.logo | image_url: width: 150 }}"
+          alt="{{ shop.name }}"
+          class="h-10 w-auto"
+        />
+      {% else %}
+        <span class="font-brand text-3xl text-pink-500">La Hime</span>
+      {% endif %}
       <button 
         onclick="toggleSidebar()" 
         class="p-2 hover:bg-gray-100 rounded-full transition-colors"
