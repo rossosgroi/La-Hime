@@ -23,16 +23,12 @@
 
       {%- comment -%} CENTER: Logo {%- endcomment -%}
       <a href="/" class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center z-30 transition-transform hover:scale-105">
-        {% if section.settings.logo %}
-          <img
-            src="{{ section.settings.logo | img_url: '200x' }}"
-            alt="{{ shop.name }}"
-            class="h-10 w-auto"
-            loading="eager"
-          />
-        {% else %}
-          <span class="font-serif-display text-2xl text-black font-bold">{{ shop.name }}</span>
-        {% endif %}
+        <img
+          src="https://cdn.shopify.com/s/files/1/0746/8445/4149/files/logo.png"
+          alt="{{ shop.name }}"
+          class="h-12 w-auto"
+          loading="eager"
+        />
       </a>
 
       {%- comment -%} RIGHT: Search, Wishlist, Cart, Account {%- endcomment -%}
@@ -143,7 +139,11 @@
   <div class="p-6">
     {%- comment -%} Sidebar Header {%- endcomment -%}
     <div class="flex justify-between items-center mb-8">
-      <h2 class="font-serif-display text-xl font-bold text-gray-900">Menu</h2>
+      <img
+        src="https://cdn.shopify.com/s/files/1/0746/8445/4149/files/logo.png"
+        alt="{{ shop.name }}"
+        class="h-10 w-auto"
+      />
       <button 
         onclick="toggleSidebar()" 
         class="p-2 hover:bg-gray-100 rounded-full transition-colors"
