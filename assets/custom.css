@@ -11,12 +11,6 @@
   text-align: center;
 }
 
-/* Hide duplicate h1 elements only within collection header */
-.bg-pink-50 h1 + h1,
-.bg-pink-50 h1:nth-of-type(n+2) {
-  display: none !important;
-}
-
 /* Additional utility classes not covered by Tailwind CDN */
 .sr-only {
   position: absolute;
