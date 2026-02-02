@@ -12,13 +12,13 @@
       <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" class="text-pink-500">
         <path d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5L12 0Z"/>
       </svg>
-      <h2 class="font-brand text-4xl text-gray-800">{{ section.settings.newsletter_title | default: "Join the Club" }}</h2>
+      <h2 class="font-brand text-4xl text-gray-800">Join the Club</h2>
       <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" class="text-pink-500">
         <path d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5L12 0Z"/>
       </svg>
     </div>
     
-    <p class="text-gray-600 mb-8 relative z-10">{{ section.settings.newsletter_description | default: "Get 10% off your first order plus early access to new drops." }}</p>
+    <p class="text-gray-600 mb-8 relative z-10">Get 10% off your first order plus early access to new drops.</p>
     
     <div id="newsletter-success" class="hidden bg-green-100 text-green-800 px-6 py-4 rounded-xl inline-flex items-center gap-2 relative z-10">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -63,28 +63,3 @@
     });
   });
 </script>
-
-{% schema %}
-{
-  "name": "Newsletter",
-  "settings": [
-    {
-      "type": "text",
-      "id": "newsletter_title",
-      "label": "Title",
-      "default": "Join the Club"
-    },
-    {
-      "type": "text",
-      "id": "newsletter_description",
-      "label": "Description",
-      "default": "Get 10% off your first order plus early access to new drops."
-    }
-  ],
-  "presets": [
-    {
-      "name": "Newsletter"
-    }
-  ]
-}
-{% endschema %}
