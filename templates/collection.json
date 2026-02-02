@@ -1,21 +1,32 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
+
 {
   "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "settings": {}
+    },
+    "hero": {
+      "type": "hero-section",
+      "settings": {}
+    },
+    "filters": {
+      "type": "filters",
+      "settings": {}
+    },
     "main": {
       "type": "collection-template",
-      "disabled": true,
+      "settings": {}
+    },
+    "newsletter": {
+      "type": "newsletter-section",
       "settings": {}
     }
   },
   "order": [
-    "main"
+    "announcement-bar",
+    "hero",
+    "filters",
+    "main",
+    "newsletter"
   ]
 }
