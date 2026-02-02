@@ -36,6 +36,31 @@ body {
   font-family: 'Playfair Display', serif;
 }
 
+/* Header typography fixes */
+h1, h2, h3, h4, h5, h6 {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+h1 {
+  line-height: 1.2;
+  display: block;
+  width: 100%;
+  white-space: normal;
+  position: static;
+  left: auto;
+  right: auto;
+}
+
+/* Fix text overflow issues on collection/shop pages */
+.prose {
+  position: static;
+  left: auto;
+  right: auto;
+  overflow: visible;
+}
+
 /* Image lazy loading */
 img[loading="lazy"] {
   opacity: 0;
