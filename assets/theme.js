@@ -4,6 +4,24 @@
  */
 
 // ============================================================================
+// HEADER SEARCH FUNCTIONALITY
+// ============================================================================
+
+document.addEventListener('DOMContentLoaded', function() {
+  const headerSearchInput = document.getElementById('header-search-input');
+  if (headerSearchInput) {
+    headerSearchInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        const query = this.value.trim();
+        if (query) {
+          window.location.href = `/search?q=${encodeURIComponent(query)}`;
+        }
+      }
+    });
+  }
+});
+
+// ============================================================================
 // CART DRAWER FUNCTIONS
 // ============================================================================
 
