@@ -16,7 +16,7 @@ A complete 1:1 conversion of the La Hime React/TypeScript website to a Shopify L
 - **AJAX Cart Drawer**: Slide-out cart with real-time updates
 - **Wishlist System**: Client-side wishlist using localStorage
 - **Product Quick View**: Quick actions on product cards
-- **Advanced Search**: Predictive search with live results
+- **Advanced Search**: Predictive search with live results (modern UI with backdrop blur)
 - **Collection Filtering**: Filter by tags and product types
 - **Sorting Options**: Multiple sort options (price, date, name, etc.)
 - **Customer Accounts**: Full account management with order history
