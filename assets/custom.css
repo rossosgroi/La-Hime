@@ -229,8 +229,16 @@ button:active {
   }
 }
 /* DRAWER ANIMATIONS */
+.cart-drawer {
+  transform: translateX(100%);
+}
+
 .cart-drawer.active {
   transform: translateX(0) !important;
+}
+
+.wishlist-drawer {
+  transform: translateX(100%);
 }
 
 .wishlist-drawer.active {
