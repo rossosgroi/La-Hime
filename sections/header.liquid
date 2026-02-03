@@ -36,12 +36,12 @@
       </a>
 
       {%- comment -%} RIGHT: Expandable Search, Wishlist, Cart, Account {%- endcomment -%}
-      <div class="flex items-center justify-end gap-2 z-20">
+      <div class="flex items-center justify-end gap-3 z-20">
         
         {%- comment -%} Expandable Search Bar {%- endcomment -%}
-        <div class="relative hidden sm:block group">
-          <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-gray-200 group-hover:border-gray-300 transition-all duration-500 group-hover:w-48">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-500 flex-shrink-0 transition-colors duration-300 group-hover:text-gray-700">
+        <div class="relative hidden sm:block">
+          <div class="search-bar-wrapper">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="search-bar-icon">
               <circle cx="11" cy="11" r="8"></circle>
               <path d="m21 21-4.35-4.35"></path>
             </svg>
@@ -49,8 +49,7 @@
               type="text"
               id="header-search-input"
               placeholder="Search..."
-              class="bg-transparent border-none outline-none text-sm text-gray-900 placeholder-gray-400 transition-all duration-500 w-0 group-hover:w-32 group-focus-within:w-32"
-              autocomplete="off"
+              class="search-bar-input"
             />
           </div>
         </div>
@@ -69,6 +68,7 @@
         
         {%- comment -%} Wishlist Button (Desktop Only) {%- endcomment -%}
         <button 
+          id="wishlist-btn"
           onclick="openWishlistDrawer()" 
           class="hidden md:flex p-2 text-black hover:text-pink-600 transition-colors rounded-full hover:bg-gray-50 relative"
           aria-label="Wishlist"
@@ -81,8 +81,9 @@
         
         {%- comment -%} Cart Button {%- endcomment -%}
         <button 
-          onclick="openCartDrawer(event)" 
-          class="p-2.5 text-black hover:text-pink-600 transition-colors rounded-full hover:bg-gray-50 relative"
+          id="cart-btn"
+          onclick="openCartDrawer()" 
+          class="p-2 text-black hover:text-pink-600 transition-colors rounded-full hover:bg-gray-50 relative"
           aria-label="Cart"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
