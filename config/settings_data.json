@@ -1,4 +1,12 @@
-
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
     "checkout_logo_image": "shopify://shop_images/logo.png",
@@ -33,8 +41,8 @@
       "header": {
         "type": "header",
         "settings": {
-          "logo": "",
-          "header_bg": "#ffffff"
+          "logo": "shopify://shop_images/logo.png",
+          "menu": "main-menu"
         }
       },
       "main": {
@@ -61,10 +69,13 @@
       "footer": {
         "type": "footer",
         "settings": {
+          "footer_title": "La Hime",
           "footer_description": "Sweet & Spicy. A fusion of Tokyo aesthetic and Shanghai streetwear for the modern fashion enthusiast.",
-          "footer_text": "Made with ♥",
-          "instagram_url": "https://instagram.com",
-          "twitter_url": "https://twitter.com"
+          "social_instagram_link": "",
+          "social_twitter_link": "",
+          "social_email": "",
+          "menu_title": "Care",
+          "footer_menu": ""
         }
       },
       "cart-drawer": {
@@ -82,6 +93,12 @@
       "mobile-nav": {
         "type": "mobile-nav",
         "settings": {}
+      },
+      "product-carousel": {
+        "type": "product-carousel",
+        "settings": {
+          "collection": ""
+        }
       }
     },
     "content_for_index": [
