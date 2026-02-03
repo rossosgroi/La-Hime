@@ -34,6 +34,11 @@
   <script src="{{ 'theme.js' | asset_url }}" defer></script>
   <script src="{{ 'cart.js' | asset_url }}" defer></script>
 
+  <!-- Cache control for better updates -->
+  <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="expires" content="0">
+
   {{ content_for_header }}
 
   <style>

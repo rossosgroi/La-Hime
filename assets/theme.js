@@ -200,29 +200,22 @@ function loadWishlistItems() {
   
   // Fetch product details for wishlist items
   Promise.all(wishlist.map(id => 
-    fetch(`/products.json?limit=1&vendor=${id}`)
+    fetch(`/products/${id}.json`)
       .then(r => r.json())
       .catch(() => null)
   ))
   .then(results => {
-    if (!results.some(r => r)) {
+    const products = results.filter(r => r && r.product).map(r => r.product);
+    
+    if (!products || products.length === 0) {
       container.innerHTML = '<p class="text-center text-gray-500">Unable to load wishlist items</p>';
       return;
     }
     
-    const items = results
-      .filter(r => r && r.products && r.products[0])
-      .map(r => r.products[0]);
-    
-    if (items.length === 0) {
-      container.innerHTML = '<p class="text-center text-gray-500">Wishlist items not found</p>';
-      return;
-    }
-    
-    container.innerHTML = items.map(product => `
+    container.innerHTML = products.map(product => `
       <div class="flex gap-4 items-center border-b border-gray-100 pb-4 mb-4">
         <a href="/products/${product.handle}" class="w-20 h-20 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
-          <img src="${product.featured_image.src}" alt="${product.title}" class="w-full h-full object-cover" loading="lazy" />
+          <img src="${product.featured_image ? product.featured_image.src : ''}" alt="${product.title}" class="w-full h-full object-cover" loading="lazy" />
         </a>
         <div class="flex-1 min-w-0">
           <a href="/products/${product.handle}" class="font-bold text-gray-900 hover:text-pink-600 line-clamp-2">
