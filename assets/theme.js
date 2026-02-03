@@ -28,11 +28,13 @@ document.addEventListener('DOMContentLoaded', function() {
 function openCartDrawer(event) {
   if (event) event.preventDefault();
   const drawer = document.getElementById('cart-drawer');
-  const overlay = document.getElementById('cart-drawer-overlay');
   
-  if (!drawer) return;
-  drawer.classList.remove('translate-x-full');
-  if (overlay) overlay.classList.remove('hidden');
+  if (!drawer) {
+    console.error('Cart drawer not found');
+    return;
+  }
+  
+  drawer.classList.add('active');
   document.body.classList.add('overflow-hidden');
   
   // Refresh cart contents
@@ -46,11 +48,11 @@ function openCartDrawer(event) {
 
 function closeCartDrawer() {
   const drawer = document.getElementById('cart-drawer');
-  const overlay = document.getElementById('cart-drawer-overlay');
   
-  if (drawer) drawer.classList.add('translate-x-full');
-  if (overlay) overlay.classList.add('hidden');
-  document.body.classList.remove('overflow-hidden');
+  if (drawer) {
+    drawer.classList.remove('active');
+    document.body.classList.remove('overflow-hidden');
+  }
 }
 
 function updateCartDrawer(cart) {
@@ -176,11 +178,13 @@ function updateWishlistCount() {
 
 function openWishlistDrawer() {
   const drawer = document.getElementById('wishlist-drawer');
-  const overlay = document.getElementById('wishlist-drawer-overlay');
   
-  if (!drawer) return;
-  drawer.classList.remove('translate-x-full');
-  if (overlay) overlay.classList.remove('hidden');
+  if (!drawer) {
+    console.error('Wishlist drawer not found');
+    return;
+  }
+  
+  drawer.classList.add('active');
   document.body.classList.add('overflow-hidden');
   
   loadWishlistItems();
@@ -188,9 +192,12 @@ function openWishlistDrawer() {
 
 function closeWishlistDrawer() {
   const drawer = document.getElementById('wishlist-drawer');
-  const overlay = document.getElementById('wishlist-drawer-overlay');
   
-  if (drawer) drawer.classList.add('translate-x-full');
+  if (drawer) {
+    drawer.classList.remove('active');
+    document.body.classList.remove('overflow-hidden');
+  }
+}
   if (overlay) overlay.classList.add('hidden');
   document.body.classList.remove('overflow-hidden');
 }
