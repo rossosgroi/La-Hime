@@ -198,9 +198,6 @@ function closeWishlistDrawer() {
     document.body.classList.remove('overflow-hidden');
   }
 }
-  if (overlay) overlay.classList.add('hidden');
-  document.body.classList.remove('overflow-hidden');
-}
 
 function loadWishlistItems() {
   const wishlist = getWishlist();
