@@ -26,14 +26,20 @@ document.addEventListener('DOMContentLoaded', function() {
 // ============================================================================
 
 function openCartDrawer(event) {
-  if (event) event.preventDefault();
+  if (event) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+  
   const drawer = document.getElementById('cart-drawer');
   
   if (!drawer) {
-    console.error('Cart drawer not found');
+    console.error('Cart drawer not found with id="cart-drawer"');
+    console.log('Available elements:', document.querySelectorAll('[class*="cart"]'));
     return;
   }
   
+  console.log('Opening cart drawer');
   drawer.classList.add('active');
   document.body.classList.add('overflow-hidden');
   
@@ -50,6 +56,7 @@ function closeCartDrawer() {
   const drawer = document.getElementById('cart-drawer');
   
   if (drawer) {
+    console.log('Closing cart drawer');
     drawer.classList.remove('active');
     document.body.classList.remove('overflow-hidden');
   }
@@ -180,10 +187,12 @@ function openWishlistDrawer() {
   const drawer = document.getElementById('wishlist-drawer');
   
   if (!drawer) {
-    console.error('Wishlist drawer not found');
+    console.error('Wishlist drawer not found with id="wishlist-drawer"');
+    console.log('Available elements:', document.querySelectorAll('[class*="wishlist"]'));
     return;
   }
   
+  console.log('Opening wishlist drawer');
   drawer.classList.add('active');
   document.body.classList.add('overflow-hidden');
   
@@ -194,12 +203,10 @@ function closeWishlistDrawer() {
   const drawer = document.getElementById('wishlist-drawer');
   
   if (drawer) {
+    console.log('Closing wishlist drawer');
     drawer.classList.remove('active');
     document.body.classList.remove('overflow-hidden');
   }
-}
-  if (overlay) overlay.classList.add('hidden');
-  document.body.classList.remove('overflow-hidden');
 }
 
 function loadWishlistItems() {
