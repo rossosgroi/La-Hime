@@ -228,3 +228,21 @@ button:active {
     -webkit-backdrop-filter: blur(6px);
   }
 }
+/* DRAWER ANIMATIONS */
+.cart-drawer.active {
+  transform: translateX(0) !important;
+}
+
+.wishlist-drawer.active {
+  transform: translateX(0) !important;
+}
+
+#drawer-overlay {
+  transition: opacity 0.3s ease !important;
+}
+
+#drawer-overlay.opacity-100 {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  display: block !important;
+}
