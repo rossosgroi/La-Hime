@@ -3,6 +3,10 @@
  * Handles cart functionality, wishlist, product interactions, and UI features
  */
 
+console.log('theme.js loaded, DOM ready state:', document.readyState);
+console.log('Cart drawer in DOM:', document.getElementById('cart-drawer'));
+console.log('Wishlist drawer in DOM:', document.getElementById('wishlist-drawer'));
+
 // ============================================================================
 // HEADER SEARCH FUNCTIONALITY
 // ============================================================================
@@ -26,12 +30,18 @@ document.addEventListener('DOMContentLoaded', function() {
 // ============================================================================
 
 function openCartDrawer(event) {
+  console.log('openCartDrawer called');
   if (event) event.preventDefault();
   const drawer = document.getElementById('cart-drawer');
   const overlay = document.getElementById('drawer-overlay');
   
+  console.log('Cart drawer element:', drawer);
+  console.log('Drawer overlay element:', overlay);
+  console.log('DOM ready state:', document.readyState);
+  console.log('All divs with id in page:', Array.from(document.querySelectorAll('[id]')).map(el => el.id));
+  
   if (!drawer) {
-    console.error('Cart drawer not found');
+    console.error('Cart drawer not found - element does not exist in DOM');
     return;
   }
   
