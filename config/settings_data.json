@@ -71,7 +71,7 @@
           "social_twitter_link": "",
           "social_email": "",
           "menu_title": "Care",
-          "footer_menu": ""
+          "footer_menu": "footer"
         }
       },
       "cart-drawer": {
@@ -89,6 +89,12 @@
       "mobile-nav": {
         "type": "mobile-nav",
         "settings": {}
+      },
+      "product-carousel": {
+        "type": "product-carousel",
+        "settings": {
+          "collection": ""
+        }
       }
     },
     "content_for_index": [
