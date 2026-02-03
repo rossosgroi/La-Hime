@@ -112,3 +112,65 @@ button:active {
 .no-transitions * {
   transition: none !important;
 }
+
+/* Modern Search Modal Enhancements */
+.search-modal-overlay.hidden {
+  display: none;
+}
+
+/* Loading spinner animation */
+@keyframes searchSpinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.search-loading {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border: 3px solid rgba(0, 0, 0, 0.1);
+  border-right-color: #111827;
+  border-radius: 50%;
+  animation: searchSpinner 0.6s linear infinite;
+}
+
+/* Smooth focus ring for accessibility */
+.search-modal-input:focus,
+.search-close-btn:focus,
+.search-tag:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+/* Enhanced scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* Ensure backdrop filter works properly */
+@supports (backdrop-filter: blur(1px)) {
+  .search-modal-overlay {
+    backdrop-filter: blur(6px);
+  }
+}
+
+@supports (-webkit-backdrop-filter: blur(1px)) {
+  .search-modal-overlay {
+    -webkit-backdrop-filter: blur(6px);
+  }
+}
