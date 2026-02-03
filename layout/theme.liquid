@@ -31,8 +31,8 @@
   {{ 'custom.css' | asset_url | stylesheet_tag }}
 
   <!-- Theme JavaScript -->
-  <script src="{{ 'theme.js' | asset_url }}" defer></script>
-  <script src="{{ 'cart.js' | asset_url }}" defer></script>
+  <script src="{{ 'theme.js' | asset_url }}"></script>
+  <script src="{{ 'cart.js' | asset_url }}"></script>
 
   <!-- Cache control for better updates -->
   <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
@@ -97,8 +97,8 @@
 
 <body class="flex flex-col min-h-screen w-full overflow-x-hidden pt-14">
   
-  <!-- Skip to content link for accessibility -->
-  <a href="#MainContent" class="sr-only">Skip to content</a>
+  <!-- Overlay backdrop for drawers -->
+  <div id="drawer-overlay" class="fixed inset-0 bg-black/30 z-50 hidden opacity-0 transition-opacity duration-300" onclick="closeAllDrawers()" style="display: none !important;"></div>
 
   <!-- Header/Navbar -->
   {% section 'header' %}
@@ -112,10 +112,10 @@
   {% section 'footer' %}
 
   <!-- Cart Drawer (AJAX) -->
-  {% render 'cart-drawer' %}
+  {% section 'cart-drawer' %}
 
   <!-- Wishlist Drawer -->
-  {% render 'wishlist-drawer' %}
+  {% section 'wishlist-drawer' %}
 
   <!-- Search Modal -->
   {% render 'search-modal' %}

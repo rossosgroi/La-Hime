@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function openCartDrawer(event) {
   if (event) event.preventDefault();
   const drawer = document.getElementById('cart-drawer');
+  const overlay = document.getElementById('drawer-overlay');
   
   if (!drawer) {
     console.error('Cart drawer not found');
@@ -35,6 +36,10 @@ function openCartDrawer(event) {
   }
   
   drawer.classList.add('active');
+  if (overlay) {
+    overlay.style.display = '';
+    setTimeout(() => overlay.classList.add('opacity-100', 'pointer-events-auto'), 10);
+  }
   document.body.classList.add('overflow-hidden');
   
   // Refresh cart contents
@@ -48,10 +53,15 @@ function openCartDrawer(event) {
 
 function closeCartDrawer() {
   const drawer = document.getElementById('cart-drawer');
+  const overlay = document.getElementById('drawer-overlay');
   
   if (drawer) {
     drawer.classList.remove('active');
     document.body.classList.remove('overflow-hidden');
+  }
+  if (overlay) {
+    overlay.classList.remove('opacity-100', 'pointer-events-auto');
+    setTimeout(() => overlay.style.display = 'none', 300);
   }
 }
 
@@ -178,6 +188,7 @@ function updateWishlistCount() {
 
 function openWishlistDrawer() {
   const drawer = document.getElementById('wishlist-drawer');
+  const overlay = document.getElementById('drawer-overlay');
   
   if (!drawer) {
     console.error('Wishlist drawer not found');
@@ -185,6 +196,10 @@ function openWishlistDrawer() {
   }
   
   drawer.classList.add('active');
+  if (overlay) {
+    overlay.style.display = '';
+    setTimeout(() => overlay.classList.add('opacity-100', 'pointer-events-auto'), 10);
+  }
   document.body.classList.add('overflow-hidden');
   
   loadWishlistItems();
@@ -192,10 +207,15 @@ function openWishlistDrawer() {
 
 function closeWishlistDrawer() {
   const drawer = document.getElementById('wishlist-drawer');
+  const overlay = document.getElementById('drawer-overlay');
   
   if (drawer) {
     drawer.classList.remove('active');
     document.body.classList.remove('overflow-hidden');
+  }
+  if (overlay) {
+    overlay.classList.remove('opacity-100', 'pointer-events-auto');
+    setTimeout(() => overlay.style.display = 'none', 300);
   }
 }
 
