@@ -268,19 +268,28 @@ button:active {
     text-align: center !important;
     font-size: 1.75rem !important;
     line-height: 1.2 !important;
+    width: 100% !important;
+    margin: 0 auto !important;
   }
   
   .la-hero-content {
     text-align: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
   
   .la-hero-badge {
     text-align: center !important;
+    margin: 0 auto !important;
   }
   
   .la-hero-actions {
     flex-direction: column !important;
     gap: 0.5rem !important;
+    width: 100% !important;
+    align-items: center !important;
   }
   
   /* Ensure search modal stays hidden on mobile when closed */

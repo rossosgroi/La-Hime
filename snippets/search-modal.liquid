@@ -49,55 +49,8 @@
     display: none !important;
   }
 </style>
-  <div class="search-modal-container">
-    <!-- Search Input Header -->
-    <div class="search-modal-header">
-      <div class="search-modal-header-content">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="search-icon">
-          <circle cx="11" cy="11" r="8"></circle>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-        </svg>
-        <form action="/search" method="get" class="search-form">
-          <input
-            type="text"
-            name="q"
-            id="search-modal-input"
-            placeholder="Search products, collections..."
-            autocomplete="off"
-            class="search-modal-input"
-          />
-        </form>
-        <button type="button" onclick="closeSearchModal()" class="search-close-btn">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
-        </button>
-      </div>
-    </div>
 
-    <!-- Search Results -->
-    <div id="search-modal-results" class="search-modal-results">
-      <div class="search-empty-state">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="search-empty-icon">
-          <circle cx="11" cy="11" r="8"></circle>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-        </svg>
-        <p>Start typing to search...</p>
-      </div>
-    </div>
-
-    <!-- Popular Searches Footer -->
-    <div class="search-modal-footer">
-      <p class="search-footer-label">Popular Searches</p>
-      <div class="search-tags">
-        <a href="/search?q=miniskirts" class="search-tag">Miniskirts</a>
-        <a href="/search?q=tops" class="search-tag">Tops</a>
-        <a href="/search?q=dresses" class="search-tag">Dresses</a>
-        <a href="/search?q=new" class="search-tag">New Arrivals</a>
-      </div>
-    </div>
-  </div>
+<!-- Additional search results content is loaded via JS -->
 </div>
 
 <style>
